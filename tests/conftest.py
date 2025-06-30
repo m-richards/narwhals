@@ -31,13 +31,23 @@ if TYPE_CHECKING:
 
 MIN_PANDAS_NULLABLE_VERSION = (2,)
 
+if False:
+    default_constructors = NotImplemented
+
+
+def _walrus_wrapper_default_constructors_bf4e922331fb48bf92c139bacdda354a(expr):
+    """Wrapper function for assignment expression."""
+    global default_constructors
+    default_constructors = expr
+    return default_constructors
+
 # When testing cudf.pandas in Kaggle, we get an error if we try to run
 # python -m cudf.pandas -m pytest --constructors=pandas. This gives us
 # a way to run `python -m cudf.pandas -m pytest` and control which constructors
 # get tested.
-if default_constructors := os.environ.get(
+if _walrus_wrapper_default_constructors_bf4e922331fb48bf92c139bacdda354a(os.environ.get(
     "NARWHALS_DEFAULT_CONSTRUCTORS", None
-):  # pragma: no cover
+)):  # pragma: no cover
     DEFAULT_CONSTRUCTORS = default_constructors
 else:
     DEFAULT_CONSTRUCTORS = (

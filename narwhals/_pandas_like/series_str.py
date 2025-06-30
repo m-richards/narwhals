@@ -58,7 +58,17 @@ class PandasLikeSeriesStringNamespace(
         if format and any(x in format for x in ("%z", "Z")):
             return self.with_native(self._to_datetime(format, utc=True))
         result = self.with_native(self._to_datetime(format, utc=False))
-        if (tz := getattr(result.dtype, "time_zone", None)) and tz != "UTC":
+
+        if False:
+            tz = NotImplemented
+
+        def _walrus_wrapper_tz_4de1612550034c33a7567272e1ad5f8a(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal tz
+            tz = expr
+            return tz
+
+        if (_walrus_wrapper_tz_4de1612550034c33a7567272e1ad5f8a(getattr(result.dtype, "time_zone", None))) and tz != "UTC":
             return result.dt.convert_time_zone("UTC")
         return result
 

@@ -168,7 +168,17 @@ class BaseFrame(Generic[_FrameT]):
                 )
             except Exception as e:
                 # Column not found is the only thing that can realistically be raised here.
-                if error := self._compliant_frame._check_columns_exist(flat_exprs):
+
+                if False:
+                    error = NotImplemented
+
+                def _walrus_wrapper_error_3f0e1db7b7ba4b90b806efd1209fdc3d(expr):
+                    """Wrapper function for assignment expression."""
+                    nonlocal error
+                    error = expr
+                    return error
+
+                if _walrus_wrapper_error_3f0e1db7b7ba4b90b806efd1209fdc3d(self._compliant_frame._check_columns_exist(flat_exprs)):
                     raise error from e
                 raise
         compliant_exprs, kinds = self._flatten_and_extract(*flat_exprs, **named_exprs)

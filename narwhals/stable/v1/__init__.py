@@ -1146,10 +1146,18 @@ def narwhalify(
                 for name, value in kwargs.items()
             }
 
+            if False:
+                b = NotImplemented
+
+            def _walrus_wrapper_b_28f4eb1fcd0a4f539cfb299b7a097c36(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal b
+                b = expr
+                return b
             backends = {
                 b()
                 for v in (*args, *kwargs.values())
-                if (b := getattr(v, "__native_namespace__", None))
+                if (_walrus_wrapper_b_28f4eb1fcd0a4f539cfb299b7a097c36(getattr(v, "__native_namespace__", None)))
             }
 
             if backends.__len__() > 1:

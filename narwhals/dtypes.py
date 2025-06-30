@@ -481,9 +481,24 @@ class Enum(DType):
 
     @property
     def categories(self) -> tuple[str, ...]:
-        if cached := self._cached_categories:
+        if False:
+            cached = delayed = NotImplemented
+
+        def _walrus_wrapper_cached_b280e7e0a19e4f5f854e88dd515d51c6(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal cached
+            cached = expr
             return cached
-        elif delayed := self._delayed_categories:
+
+        def _walrus_wrapper_delayed_fc37fe4ba372437fb28418ebe803a28c(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal delayed
+            delayed = expr
+            return delayed
+
+        if _walrus_wrapper_cached_b280e7e0a19e4f5f854e88dd515d51c6(self._cached_categories):
+            return cached
+        elif _walrus_wrapper_delayed_fc37fe4ba372437fb28418ebe803a28c(self._delayed_categories):
             self._cached_categories = delayed.to_tuple()
             return self._cached_categories
         else:  # pragma: no cover

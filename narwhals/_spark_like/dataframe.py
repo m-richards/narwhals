@@ -342,7 +342,16 @@ class SparkLikeLazyFrame(
     def unique(
         self, subset: Sequence[str] | None, *, keep: LazyUniqueKeepStrategy
     ) -> Self:
-        if subset and (error := self._check_columns_exist(subset)):
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_08901ab441da463ebc045f71715e2917(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+
+        if subset and (_walrus_wrapper_error_08901ab441da463ebc045f71715e2917(self._check_columns_exist(subset))):
             raise error
         subset = list(subset) if subset else None
         if keep == "none":

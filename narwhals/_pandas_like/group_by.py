@@ -59,7 +59,8 @@ class PandasLikeGroupBy(EagerGroupBy["PandasLikeDataFrame", "PandasLikeExpr", st
             observed=True,
         )
 
-    def agg(self, *exprs: PandasLikeExpr) -> PandasLikeDataFrame:  # noqa: C901, PLR0912, PLR0914, PLR0915
+    def agg(self, *exprs: PandasLikeExpr) -> PandasLikeDataFrame:
+        # noqa: C901, PLR0912, PLR0914, PLR0915
         implementation = self.compliant._implementation
         backend_version = self.compliant._backend_version
         new_names: list[str] = self._keys.copy()
@@ -90,7 +91,8 @@ class PandasLikeGroupBy(EagerGroupBy["PandasLikeDataFrame", "PandasLikeExpr", st
         expected_old_names: list[str] = []
         simple_agg_new_names: list[str] = []
 
-        if all_aggs_are_simple:  # noqa: PLR1702
+        if all_aggs_are_simple:
+            # noqa: PLR1702
             for expr in exprs:
                 output_names, aliases = evaluate_output_names_and_aliases(
                     expr, self.compliant, exclude
@@ -112,12 +114,27 @@ class PandasLikeGroupBy(EagerGroupBy["PandasLikeDataFrame", "PandasLikeExpr", st
                 is_std = function_name == "std"
                 is_var = function_name == "var"
                 for output_name, alias in zip(output_names, aliases):
+                    if False:
+                        ddof = NotImplemented
+
+                    def _walrus_wrapper_ddof_24811b0b150b4855a66ef849936aeca4(expr):
+                        """Wrapper function for assignment expression."""
+                        nonlocal ddof
+                        ddof = expr
+                        return ddof
+
+                    def _walrus_wrapper_ddof_76195eb2a24c43db957e116762b39e6e(expr):
+                        """Wrapper function for assignment expression."""
+                        nonlocal ddof
+                        ddof = expr
+                        return ddof
+
                     if is_n_unique:
                         nunique_aggs[alias] = output_name
-                    elif is_std and (ddof := expr._scalar_kwargs["ddof"]) != 1:  # pyright: ignore[reportTypedDictNotRequiredAccess]
+                    elif is_std and (_walrus_wrapper_ddof_24811b0b150b4855a66ef849936aeca4(expr._scalar_kwargs["ddof"])) != 1:  # pyright: ignore[reportTypedDictNotRequiredAccess]
                         std_aggs[ddof][0].append(output_name)
                         std_aggs[ddof][1].append(alias)
-                    elif is_var and (ddof := expr._scalar_kwargs["ddof"]) != 1:  # pyright: ignore[reportTypedDictNotRequiredAccess]
+                    elif is_var and (_walrus_wrapper_ddof_76195eb2a24c43db957e116762b39e6e(expr._scalar_kwargs["ddof"])) != 1:  # pyright: ignore[reportTypedDictNotRequiredAccess]
                         var_aggs[ddof][0].append(output_name)
                         var_aggs[ddof][1].append(alias)
                     else:
@@ -130,9 +147,19 @@ class PandasLikeGroupBy(EagerGroupBy["PandasLikeDataFrame", "PandasLikeExpr", st
 
             if simple_aggs:
                 # Fast path for single aggregation such as `df.groupby(...).mean()`
+
+                if False:
+                    agg_method = NotImplemented
+
+                def _walrus_wrapper_agg_method_48426868619745ee9c8e8a94f40adc9c(expr):
+                    """Wrapper function for assignment expression."""
+                    nonlocal agg_method
+                    agg_method = expr
+                    return agg_method
+
                 if (
                     len(simple_aggs_functions) == 1
-                    and (agg_method := simple_aggs_functions.pop()) != "size"
+                    and (_walrus_wrapper_agg_method_48426868619745ee9c8e8a94f40adc9c(simple_aggs_functions.pop())) != "size"
                     and len(simple_aggs) > 1
                 ):
                     result_simple_aggs = getattr(

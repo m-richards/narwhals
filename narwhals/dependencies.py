@@ -51,9 +51,20 @@ def get_pandas() -> Any:
     return sys.modules.get("pandas", None)
 
 
-def get_modin() -> Any:  # pragma: no cover
+def get_modin() -> Any:
+    # pragma: no cover
     """Get modin.pandas module (if already imported - else return None)."""
-    if (modin := sys.modules.get("modin", None)) is not None:
+
+    if False:
+        modin = NotImplemented
+
+    def _walrus_wrapper_modin_9d0295c829e54596baa98f90ad973adb(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal modin
+        modin = expr
+        return modin
+
+    if (_walrus_wrapper_modin_9d0295c829e54596baa98f90ad973adb(sys.modules.get("modin", None))) is not None:
         return modin.pandas
     return None
 
@@ -98,9 +109,20 @@ def get_ibis() -> Any:
     return sys.modules.get("ibis", None)
 
 
-def get_dask_expr() -> Any:  # pragma: no cover
+def get_dask_expr() -> Any:
+    # pragma: no cover
     """Get dask_expr module (if already imported - else return None)."""
-    if (dd := get_dask_dataframe()) is not None and hasattr(dd, "dask_expr"):
+
+    if False:
+        dd = NotImplemented
+
+    def _walrus_wrapper_dd_7d441d42fccd49c399ec80c9e1fcbe38(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal dd
+        dd = expr
+        return dd
+
+    if (_walrus_wrapper_dd_7d441d42fccd49c399ec80c9e1fcbe38(get_dask_dataframe())) is not None and hasattr(dd, "dask_expr"):
         return dd.dask_expr
     return sys.modules.get("dask_expr", None)
 
@@ -152,8 +174,24 @@ def is_pandas_dataframe(df: Any) -> TypeIs[pd.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return ((pd := get_pandas()) is not None and isinstance(df, pd.DataFrame)) or any(
-        (mod := sys.modules.get(module_name, None)) is not None
+
+    if False:
+        mod = pd = NotImplemented
+
+    def _walrus_wrapper_mod_73d53f770d9045ec9de5d3eddc28cb8d(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mod
+        mod = expr
+        return mod
+
+    def _walrus_wrapper_pd_12018570ef53467884a11b19e848ec4e(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    return ((_walrus_wrapper_pd_12018570ef53467884a11b19e848ec4e(get_pandas())) is not None and isinstance(df, pd.DataFrame)) or any(
+        (_walrus_wrapper_mod_73d53f770d9045ec9de5d3eddc28cb8d(sys.modules.get(module_name, None))) is not None
         and isinstance(df, mod.pandas.DataFrame)
         for module_name in IMPORT_HOOKS
     )
@@ -166,8 +204,24 @@ def is_pandas_series(ser: Any) -> TypeIs[pd.Series[Any]]:
         This method cannot be called on Narwhals Series.
     """
     _raise_if_narwhals_series(ser)
-    return ((pd := get_pandas()) is not None and isinstance(ser, pd.Series)) or any(
-        (mod := sys.modules.get(module_name, None)) is not None
+
+    if False:
+        mod = pd = NotImplemented
+
+    def _walrus_wrapper_mod_7b46ffb5906646d390b864f521287562(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mod
+        mod = expr
+        return mod
+
+    def _walrus_wrapper_pd_ea6823d8829543a6b7167603cac9ac45(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    return ((_walrus_wrapper_pd_ea6823d8829543a6b7167603cac9ac45(get_pandas())) is not None and isinstance(ser, pd.Series)) or any(
+        (_walrus_wrapper_mod_7b46ffb5906646d390b864f521287562(sys.modules.get(module_name, None))) is not None
         and isinstance(ser, mod.pandas.Series)
         for module_name in IMPORT_HOOKS
     )
@@ -175,8 +229,24 @@ def is_pandas_series(ser: Any) -> TypeIs[pd.Series[Any]]:
 
 def is_pandas_index(index: Any) -> TypeIs[pd.Index[Any]]:
     """Check whether `index` is a pandas Index without importing pandas."""
-    return ((pd := get_pandas()) is not None and isinstance(index, pd.Index)) or any(
-        (mod := sys.modules.get(module_name, None)) is not None
+
+    if False:
+        mod = pd = NotImplemented
+
+    def _walrus_wrapper_mod_c862ddc45aae47da85424b1841103c82(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mod
+        mod = expr
+        return mod
+
+    def _walrus_wrapper_pd_55605018b11b4216a646553cfa848d5d(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    return ((_walrus_wrapper_pd_55605018b11b4216a646553cfa848d5d(get_pandas())) is not None and isinstance(index, pd.Index)) or any(
+        (_walrus_wrapper_mod_c862ddc45aae47da85424b1841103c82(sys.modules.get(module_name, None))) is not None
         and isinstance(index, mod.pandas.Index)
         for module_name in IMPORT_HOOKS
     )
@@ -189,7 +259,17 @@ def is_modin_dataframe(df: Any) -> TypeIs[mpd.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (mpd := get_modin()) is not None and isinstance(df, mpd.DataFrame)
+
+    if False:
+        mpd = NotImplemented
+
+    def _walrus_wrapper_mpd_9257ae0540fe44a8ae40ef6a9db7e311(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mpd
+        mpd = expr
+        return mpd
+
+    return (_walrus_wrapper_mpd_9257ae0540fe44a8ae40ef6a9db7e311(get_modin())) is not None and isinstance(df, mpd.DataFrame)
 
 
 def is_modin_series(ser: Any) -> TypeIs[mpd.Series]:
@@ -199,12 +279,33 @@ def is_modin_series(ser: Any) -> TypeIs[mpd.Series]:
         This method cannot be called on Narwhals Series.
     """
     _raise_if_narwhals_series(ser)
-    return (mpd := get_modin()) is not None and isinstance(ser, mpd.Series)
+
+    if False:
+        mpd = NotImplemented
+
+    def _walrus_wrapper_mpd_8220a43dfd114742b20d0f8277ac2bfb(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mpd
+        mpd = expr
+        return mpd
+
+    return (_walrus_wrapper_mpd_8220a43dfd114742b20d0f8277ac2bfb(get_modin())) is not None and isinstance(ser, mpd.Series)
 
 
-def is_modin_index(index: Any) -> TypeIs[mpd.Index[Any]]:  # pragma: no cover
+def is_modin_index(index: Any) -> TypeIs[mpd.Index[Any]]:
+    # pragma: no cover
     """Check whether `index` is a modin Index without importing modin."""
-    return (mpd := get_modin()) is not None and isinstance(index, mpd.Index)
+
+    if False:
+        mpd = NotImplemented
+
+    def _walrus_wrapper_mpd_b1e6513074f34a01ad60283ccfb8a677(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mpd
+        mpd = expr
+        return mpd
+
+    return (_walrus_wrapper_mpd_b1e6513074f34a01ad60283ccfb8a677(get_modin())) is not None and isinstance(index, mpd.Index)
 
 
 def is_cudf_dataframe(df: Any) -> TypeIs[cudf.DataFrame]:
@@ -214,7 +315,17 @@ def is_cudf_dataframe(df: Any) -> TypeIs[cudf.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (cudf := get_cudf()) is not None and isinstance(df, cudf.DataFrame)
+
+    if False:
+        cudf = NotImplemented
+
+    def _walrus_wrapper_cudf_dd67431b2a4c4c59964d0ac557b87102(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cudf
+        cudf = expr
+        return cudf
+
+    return (_walrus_wrapper_cudf_dd67431b2a4c4c59964d0ac557b87102(get_cudf())) is not None and isinstance(df, cudf.DataFrame)
 
 
 def is_cudf_series(ser: Any) -> TypeIs[cudf.Series[Any]]:
@@ -224,19 +335,48 @@ def is_cudf_series(ser: Any) -> TypeIs[cudf.Series[Any]]:
         This method cannot be called on Narwhals Series.
     """
     _raise_if_narwhals_series(ser)
-    return (cudf := get_cudf()) is not None and isinstance(ser, cudf.Series)
+
+    if False:
+        cudf = NotImplemented
+
+    def _walrus_wrapper_cudf_c52f20fde79445189481618dc26200da(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cudf
+        cudf = expr
+        return cudf
+
+    return (_walrus_wrapper_cudf_c52f20fde79445189481618dc26200da(get_cudf())) is not None and isinstance(ser, cudf.Series)
 
 
 def is_cudf_index(index: Any) -> TypeIs[cudf.Index]:
     """Check whether `index` is a cudf Index without importing cudf."""
-    return (cudf := get_cudf()) is not None and isinstance(
+
+    if False:
+        cudf = NotImplemented
+
+    def _walrus_wrapper_cudf_56371c503390484cab7d812e1d8e48bf(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cudf
+        cudf = expr
+        return cudf
+
+    return (_walrus_wrapper_cudf_56371c503390484cab7d812e1d8e48bf(get_cudf())) is not None and isinstance(
         index, cudf.Index
     )  # pragma: no cover
 
 
 def is_cupy_scalar(obj: Any) -> bool:
+    if False:
+        cupy = NotImplemented
+
+    def _walrus_wrapper_cupy_b2508f921e7045ea871717623c21b28a(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cupy
+        cupy = expr
+        return cupy
+
     return (
-        (cupy := get_cupy()) is not None
+        (_walrus_wrapper_cupy_b2508f921e7045ea871717623c21b28a(get_cupy())) is not None
         and isinstance(obj, cupy.ndarray)
         and obj.size == 1
     )  # pragma: no cover
@@ -249,7 +389,17 @@ def is_dask_dataframe(df: Any) -> TypeIs[dd.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (dd := get_dask_dataframe()) is not None and isinstance(df, dd.DataFrame)
+
+    if False:
+        dd = NotImplemented
+
+    def _walrus_wrapper_dd_5cf2ca1503664ff9846b712d4339ad11(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal dd
+        dd = expr
+        return dd
+
+    return (_walrus_wrapper_dd_5cf2ca1503664ff9846b712d4339ad11(get_dask_dataframe())) is not None and isinstance(df, dd.DataFrame)
 
 
 def is_duckdb_relation(df: Any) -> TypeIs[duckdb.DuckDBPyRelation]:
@@ -259,7 +409,17 @@ def is_duckdb_relation(df: Any) -> TypeIs[duckdb.DuckDBPyRelation]:
         This method cannot be called on Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (duckdb := get_duckdb()) is not None and isinstance(
+
+    if False:
+        duckdb = NotImplemented
+
+    def _walrus_wrapper_duckdb_a08c241643044aceb9f36aaec8ba9d52(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal duckdb
+        duckdb = expr
+        return duckdb
+
+    return (_walrus_wrapper_duckdb_a08c241643044aceb9f36aaec8ba9d52(get_duckdb())) is not None and isinstance(
         df, duckdb.DuckDBPyRelation
     )
 
@@ -271,7 +431,17 @@ def is_ibis_table(df: Any) -> TypeIs[ibis.Table]:
         This method cannot be called on Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (ibis := get_ibis()) is not None and isinstance(df, ibis.expr.types.Table)
+
+    if False:
+        ibis = NotImplemented
+
+    def _walrus_wrapper_ibis_8fc8b89dae7d4124856f34c635a583ea(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal ibis
+        ibis = expr
+        return ibis
+
+    return (_walrus_wrapper_ibis_8fc8b89dae7d4124856f34c635a583ea(get_ibis())) is not None and isinstance(df, ibis.expr.types.Table)
 
 
 def is_polars_dataframe(df: Any) -> TypeIs[pl.DataFrame]:
@@ -281,7 +451,17 @@ def is_polars_dataframe(df: Any) -> TypeIs[pl.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (pl := get_polars()) is not None and isinstance(df, pl.DataFrame)
+
+    if False:
+        pl = NotImplemented
+
+    def _walrus_wrapper_pl_a290783a51694d498cc792195338c95a(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pl
+        pl = expr
+        return pl
+
+    return (_walrus_wrapper_pl_a290783a51694d498cc792195338c95a(get_polars())) is not None and isinstance(df, pl.DataFrame)
 
 
 def is_polars_lazyframe(df: Any) -> TypeIs[pl.LazyFrame]:
@@ -291,7 +471,17 @@ def is_polars_lazyframe(df: Any) -> TypeIs[pl.LazyFrame]:
         This method cannot be called on Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (pl := get_polars()) is not None and isinstance(df, pl.LazyFrame)
+
+    if False:
+        pl = NotImplemented
+
+    def _walrus_wrapper_pl_a2f1592feafd4992bd1ec7e4455519d0(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pl
+        pl = expr
+        return pl
+
+    return (_walrus_wrapper_pl_a2f1592feafd4992bd1ec7e4455519d0(get_polars())) is not None and isinstance(df, pl.LazyFrame)
 
 
 def is_polars_series(ser: Any) -> TypeIs[pl.Series]:
@@ -301,7 +491,17 @@ def is_polars_series(ser: Any) -> TypeIs[pl.Series]:
         This method cannot be called on Narwhals Series.
     """
     _raise_if_narwhals_series(ser)
-    return (pl := get_polars()) is not None and isinstance(ser, pl.Series)
+
+    if False:
+        pl = NotImplemented
+
+    def _walrus_wrapper_pl_b003c32586424fadb2941e6c62ac177a(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pl
+        pl = expr
+        return pl
+
+    return (_walrus_wrapper_pl_b003c32586424fadb2941e6c62ac177a(get_polars())) is not None and isinstance(ser, pl.Series)
 
 
 def is_pyarrow_chunked_array(ser: Any) -> TypeIs[pa.ChunkedArray[Any]]:
@@ -311,7 +511,17 @@ def is_pyarrow_chunked_array(ser: Any) -> TypeIs[pa.ChunkedArray[Any]]:
         This method cannot be called on Narwhals Series.
     """
     _raise_if_narwhals_series(ser)
-    return (pa := get_pyarrow()) is not None and isinstance(ser, pa.ChunkedArray)
+
+    if False:
+        pa = NotImplemented
+
+    def _walrus_wrapper_pa_64a3d61c24b24100a10416ee60c44fd7(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pa
+        pa = expr
+        return pa
+
+    return (_walrus_wrapper_pa_64a3d61c24b24100a10416ee60c44fd7(get_pyarrow())) is not None and isinstance(ser, pa.ChunkedArray)
 
 
 def is_pyarrow_table(df: Any) -> TypeIs[pa.Table]:
@@ -321,11 +531,30 @@ def is_pyarrow_table(df: Any) -> TypeIs[pa.Table]:
         This method cannot be called on Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
-    return (pa := get_pyarrow()) is not None and isinstance(df, pa.Table)
+
+    if False:
+        pa = NotImplemented
+
+    def _walrus_wrapper_pa_f68d5b7e134b44a180e4df2496826778(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pa
+        pa = expr
+        return pa
+
+    return (_walrus_wrapper_pa_f68d5b7e134b44a180e4df2496826778(get_pyarrow())) is not None and isinstance(df, pa.Table)
 
 
 def is_pyarrow_scalar(obj: Any) -> TypeIs[pa.Scalar[Any]]:
-    return (pa := get_pyarrow()) is not None and isinstance(obj, pa.Scalar)
+    if False:
+        pa = NotImplemented
+
+    def _walrus_wrapper_pa_f220d9f7c0184085992ff3c18ac1563c(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pa
+        pa = expr
+        return pa
+
+    return (_walrus_wrapper_pa_f220d9f7c0184085992ff3c18ac1563c(get_pyarrow())) is not None and isinstance(obj, pa.Scalar)
 
 
 def is_pyspark_dataframe(df: Any) -> TypeIs[pyspark_sql.DataFrame]:
@@ -335,8 +564,18 @@ def is_pyspark_dataframe(df: Any) -> TypeIs[pyspark_sql.DataFrame]:
         This method cannot be called on a Narwhals DataFrame/LazyFrame.
     """
     _raise_if_narwhals_df_or_lf(df)
+
+    if False:
+        pyspark_sql = NotImplemented
+
+    def _walrus_wrapper_pyspark_sql_62ea7f6548f44ba48380bfd826c59290(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pyspark_sql
+        pyspark_sql = expr
+        return pyspark_sql
+
     return bool(
-        (pyspark_sql := get_pyspark_sql()) is not None
+        (_walrus_wrapper_pyspark_sql_62ea7f6548f44ba48380bfd826c59290(get_pyspark_sql())) is not None
         and isinstance(df, pyspark_sql.DataFrame)
     )
 
@@ -373,7 +612,17 @@ def is_sqlframe_dataframe(df: Any) -> TypeIs[SQLFrameDataFrame]:
 
 def is_numpy_array(arr: Any | _NDArray[_ShapeT]) -> TypeIs[_NDArray[_ShapeT]]:
     """Check whether `arr` is a NumPy Array without importing NumPy."""
-    return (np := get_numpy()) is not None and isinstance(arr, np.ndarray)
+
+    if False:
+        np = NotImplemented
+
+    def _walrus_wrapper_np_5dfdd4ccfe384ea1a53d2acfd25cf9b0(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal np
+        np = expr
+        return np
+
+    return (_walrus_wrapper_np_5dfdd4ccfe384ea1a53d2acfd25cf9b0(get_numpy())) is not None and isinstance(arr, np.ndarray)
 
 
 def is_numpy_array_1d(arr: Any) -> TypeIs[_1DArray]:
@@ -382,8 +631,17 @@ def is_numpy_array_1d(arr: Any) -> TypeIs[_1DArray]:
 
 
 def is_numpy_array_1d_int(arr: Any) -> TypeIs[_1DArrayInt]:
+    if False:
+        np = NotImplemented
+
+    def _walrus_wrapper_np_216e7edc7440450b8b2279371d2a2477(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal np
+        np = expr
+        return np
+
     return (
-        (np := get_numpy())
+        (_walrus_wrapper_np_216e7edc7440450b8b2279371d2a2477(get_numpy()))
         and is_numpy_array_1d(arr)
         and np.issubdtype(arr.dtype, np.integer)
     )
@@ -399,7 +657,17 @@ def is_numpy_scalar(scalar: Any) -> TypeGuard[_NumpyScalar]:
     # NOTE: Needs to stay as `TypeGuard`
     # - Used in `Series.__getitem__`, but not annotated
     # - `TypeGuard` is *hiding* that the check introduces an intersection
-    return (np := get_numpy()) is not None and isinstance(scalar, np.generic)
+
+    if False:
+        np = NotImplemented
+
+    def _walrus_wrapper_np_fbd8264d55d64165b444631d57cc453d(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal np
+        np = expr
+        return np
+
+    return (_walrus_wrapper_np_fbd8264d55d64165b444631d57cc453d(get_numpy())) is not None and isinstance(scalar, np.generic)
 
 
 def is_pandas_like_dataframe(df: Any) -> bool:

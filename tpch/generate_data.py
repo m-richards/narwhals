@@ -54,7 +54,17 @@ results = con.query(
 """  # noqa: S608
 )
 
-while row := results.fetchmany(1):
+if False:
+    row = NotImplemented
+
+
+def _walrus_wrapper_row_db47c49d0e2e4f9392e97ee6fac0e8d7(expr):
+    """Wrapper function for assignment expression."""
+    global row
+    row = expr
+    return row
+
+while _walrus_wrapper_row_db47c49d0e2e4f9392e97ee6fac0e8d7(results.fetchmany(1)):
     query_nr, answer = row[0]
     tbl_answer = pc.read_csv(
         io.BytesIO(answer.encode("utf-8")), parse_options=pc.ParseOptions(delimiter="|")

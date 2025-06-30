@@ -61,7 +61,16 @@ def test_scan_csv(
 
         kwargs = {"session": DuckDBSession(), "inferSchema": True, "header": True}
     elif "pyspark" in str(constructor):
-        if is_spark_connect := os.environ.get("SPARK_CONNECT", None):
+        if False:
+            is_spark_connect = NotImplemented
+
+        def _walrus_wrapper_is_spark_connect_e4a0a5ebacf64b5c8375390f47a8687c(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal is_spark_connect
+            is_spark_connect = expr
+            return is_spark_connect
+
+        if _walrus_wrapper_is_spark_connect_e4a0a5ebacf64b5c8375390f47a8687c(os.environ.get("SPARK_CONNECT", None)):
             from pyspark.sql.connect.session import SparkSession
         else:
             from pyspark.sql import SparkSession
@@ -142,7 +151,16 @@ def test_scan_parquet(
         kwargs = {"session": DuckDBSession(), "inferSchema": True}
 
     elif "pyspark" in str(constructor):
-        if is_spark_connect := os.environ.get("SPARK_CONNECT", None):
+        if False:
+            is_spark_connect = NotImplemented
+
+        def _walrus_wrapper_is_spark_connect_c115d65cfbc54229a47a3d4bcb80b515(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal is_spark_connect
+            is_spark_connect = expr
+            return is_spark_connect
+
+        if _walrus_wrapper_is_spark_connect_c115d65cfbc54229a47a3d4bcb80b515(os.environ.get("SPARK_CONNECT", None)):
             from pyspark.sql.connect.session import SparkSession
         else:
             from pyspark.sql import SparkSession

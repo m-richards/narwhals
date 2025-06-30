@@ -427,8 +427,18 @@ class EagerDataFrame(
         """
         aliases = expr._evaluate_aliases(self)
         result = expr(self)
+
+        if False:
+            result_aliases = NotImplemented
+
+        def _walrus_wrapper_result_aliases_eb42090bfe7b40f5bf28e9735684dea5(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal result_aliases
+            result_aliases = expr
+            return result_aliases
+
         if list(aliases) != (
-            result_aliases := [s.name for s in result]
+            _walrus_wrapper_result_aliases_eb42090bfe7b40f5bf28e9735684dea5([s.name for s in result])
         ):  # pragma: no cover
             msg = f"Safety assertion failed, expected {aliases}, got {result_aliases}"
             raise AssertionError(msg)

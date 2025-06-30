@@ -258,7 +258,23 @@ class PandasLikeDataFrame(
         if other._broadcast:
             s = other.native
             return type(s)(s.iloc[0], index=index, dtype=s.dtype, name=s.name)
-        if (len_other := len(other)) != (len_idx := len(index)):
+
+        if False:
+            len_idx = len_other = NotImplemented
+
+        def _walrus_wrapper_len_idx_d25586ac2a4846dda5fe58eb21bdedcb(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal len_idx
+            len_idx = expr
+            return len_idx
+
+        def _walrus_wrapper_len_other_a4cc69c1e4a94862b27534c302d81bb2(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal len_other
+            len_other = expr
+            return len_other
+
+        if (_walrus_wrapper_len_other_a4cc69c1e4a94862b27534c302d81bb2(len(other))) != (_walrus_wrapper_len_idx_d25586ac2a4846dda5fe58eb21bdedcb(len(index))):
             msg = f"Expected object of length {len_idx}, got: {len_other}."
             raise ShapeError(msg)
         if other.native.index is not index:
@@ -774,7 +790,17 @@ class PandasLikeDataFrame(
         # The param `maintain_order` is only here for compatibility with the Polars API
         # and has no effect on the output.
         mapped_keep = {"none": False, "any": "first"}.get(keep, keep)
-        if subset and (error := self._check_columns_exist(subset)):
+
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_aa9f9f16d80b46a6adc339a448d8fc82(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+
+        if subset and (_walrus_wrapper_error_aa9f9f16d80b46a6adc339a448d8fc82(self._check_columns_exist(subset))):
             raise error
         return self._with_native(
             self.native.drop_duplicates(subset=subset, keep=mapped_keep),

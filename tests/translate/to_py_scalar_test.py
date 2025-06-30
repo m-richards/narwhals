@@ -55,7 +55,16 @@ def test_to_py_scalar_value_error(input_value: Any) -> None:
 
 
 def test_to_py_scalar_value_error_cudf() -> None:
-    if cudf := get_cudf():  # pragma: no cover
+    if False:
+        cudf = NotImplemented
+
+    def _walrus_wrapper_cudf_f4a4a910d5c84f35a24c7bd267abe643(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cudf
+        cudf = expr
+        return cudf
+
+    if _walrus_wrapper_cudf_f4a4a910d5c84f35a24c7bd267abe643(get_cudf()):  # pragma: no cover
         df = nw.from_native(cudf.DataFrame({"a": [1, 2, 3]}))
 
         with pytest.raises(ValueError, match="Expected object convertible to a scalar"):

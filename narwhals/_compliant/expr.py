@@ -251,7 +251,17 @@ class CompliantExpr(Protocol38[CompliantFrameT, CompliantSeriesOrNativeExprT_co]
         self: CompliantExpr[CompliantFrameT, Any], frame: CompliantFrameT, /
     ) -> Sequence[str]:
         names = self._evaluate_output_names(frame)
-        return alias(names) if (alias := self._alias_output_names) else names
+
+        if False:
+            alias = NotImplemented
+
+        def _walrus_wrapper_alias_a7826437819443f7a7532651cbcbbe20(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal alias
+            alias = expr
+            return alias
+
+        return alias(names) if (_walrus_wrapper_alias_a7826437819443f7a7532651cbcbbe20(self._alias_output_names)) else names
 
     @property
     def str(self) -> StringNamespace[Self]: ...
@@ -807,8 +817,18 @@ class EagerExpr(
             input_series_list = self(df)
             output_names = [input_series.name for input_series in input_series_list]
             result = [function(series) for series in input_series_list]
+
+            if False:
+                np = NotImplemented
+
+            def _walrus_wrapper_np_5b6e3603ba6d4b9da5d559738a888924(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal np
+                np = expr
+                return np
+
             if is_numpy_array(result[0]) or (
-                (np := get_numpy()) is not None and np.isscalar(result[0])
+                (_walrus_wrapper_np_5b6e3603ba6d4b9da5d559738a888924(get_numpy())) is not None and np.isscalar(result[0])
             ):
                 from_numpy = partial(
                     self.__narwhals_namespace__()._series.from_numpy, context=self

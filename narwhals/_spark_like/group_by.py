@@ -26,9 +26,18 @@ class SparkLikeLazyGroupBy(LazyGroupBy["SparkLikeLazyFrame", "SparkLikeExpr", "C
         self._compliant_frame = frame.drop_nulls(self._keys) if drop_null_keys else frame
 
     def agg(self, *exprs: SparkLikeExpr) -> SparkLikeLazyFrame:
+        if False:
+            agg_columns = NotImplemented
+
+        def _walrus_wrapper_agg_columns_0ae9bc62ae90473eb7e89b29e9c8febe(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal agg_columns
+            agg_columns = expr
+            return agg_columns
+
         result = (
             self.compliant.native.groupBy(*self._keys).agg(*agg_columns)
-            if (agg_columns := list(self._evaluate_exprs(exprs)))
+            if (_walrus_wrapper_agg_columns_0ae9bc62ae90473eb7e89b29e9c8febe(list(self._evaluate_exprs(exprs))))
             else self.compliant.native.select(*self._keys).dropDuplicates()
         )
 

@@ -202,9 +202,18 @@ class ArrowSeries(EagerSeries["ChunkedArrayAny"]):
             return series
         reshaped = []
         for s in series:
+            if False:
+                actual_len = NotImplemented
+
+            def _walrus_wrapper_actual_len_8e4c7c8749ad46e0a72a9de16607221f(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal actual_len
+                actual_len = expr
+                return actual_len
+
             if s._broadcast:
                 compliant = s._with_native(pa.repeat(s.native[0], max_length))
-            elif (actual_len := len(s)) != max_length:
+            elif (_walrus_wrapper_actual_len_8e4c7c8749ad46e0a72a9de16607221f(len(s))) != max_length:
                 msg = f"Expected object of length {max_length}, got {actual_len}."
                 raise ShapeError(msg)
             else:

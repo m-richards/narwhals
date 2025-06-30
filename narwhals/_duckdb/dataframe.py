@@ -378,9 +378,28 @@ class DuckDBLazyFrame(
     def unique(
         self, subset: Sequence[str] | None, *, keep: LazyUniqueKeepStrategy
     ) -> Self:
-        if subset_ := subset if keep == "any" else (subset or self.columns):
+        if False:
+            subset_ = NotImplemented
+
+        def _walrus_wrapper_subset__4274082a61764356a4f6dd8af8988c8c(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal subset_
+            subset_ = expr
+            return subset_
+
+        if _walrus_wrapper_subset__4274082a61764356a4f6dd8af8988c8c(subset if keep == "any" else (subset or self.columns)):
             # Sanitise input
-            if error := self._check_columns_exist(subset_):
+
+            if False:
+                error = NotImplemented
+
+            def _walrus_wrapper_error_7fabde54066a4d2b8c4cc691f36f2640(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal error
+                error = expr
+                return error
+
+            if _walrus_wrapper_error_7fabde54066a4d2b8c4cc691f36f2640(self._check_columns_exist(subset_)):
                 raise error
             idx_name = generate_temporary_column_name(8, self.columns)
             count_name = generate_temporary_column_name(8, [*self.columns, idx_name])

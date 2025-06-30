@@ -74,7 +74,16 @@ class ArrowExpr(EagerExpr["ArrowDataFrame", ArrowSeries]):
                     for column_name in evaluate_column_names(df)
                 ]
             except KeyError as e:
-                if error := df._check_columns_exist(evaluate_column_names(df)):
+                if False:
+                    error = NotImplemented
+
+                def _walrus_wrapper_error_fdde41311127471fb0fbace716b54cf0(expr):
+                    """Wrapper function for assignment expression."""
+                    nonlocal error
+                    error = expr
+                    return error
+
+                if _walrus_wrapper_error_fdde41311127471fb0fbace716b54cf0(df._check_columns_exist(evaluate_column_names(df))):
                     raise error from e
                 raise
 
@@ -154,10 +163,19 @@ class ArrowExpr(EagerExpr["ArrowDataFrame", ArrowSeries]):
                 sorting_indices = pc.sort_indices(df.get_column(token).native)
                 return [s._with_native(s.native.take(sorting_indices)) for s in result]
         else:
-
             def func(df: ArrowDataFrame) -> Sequence[ArrowSeries]:
                 output_names, aliases = evaluate_output_names_and_aliases(self, df, [])
-                if overlap := set(output_names).intersection(partition_by):
+
+                if False:
+                    overlap = NotImplemented
+
+                def _walrus_wrapper_overlap_a15af1c0eb0b4bdca08972ad0947b69f(expr):
+                    """Wrapper function for assignment expression."""
+                    nonlocal overlap
+                    overlap = expr
+                    return overlap
+
+                if _walrus_wrapper_overlap_a15af1c0eb0b4bdca08972ad0947b69f(set(output_names).intersection(partition_by)):
                     # E.g. `df.select(nw.all().sum().over('a'))`. This is well-defined,
                     # we just don't support it yet.
                     msg = (

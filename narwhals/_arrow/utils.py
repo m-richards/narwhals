@@ -166,7 +166,8 @@ def native_to_narwhals_dtype(dtype: pa.DataType, version: Version) -> DType:  # 
     return dtypes.Unknown()  # pragma: no cover
 
 
-def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> pa.DataType:  # noqa: C901, PLR0912
+def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> pa.DataType:
+    # noqa: C901, PLR0912
     dtypes = version.dtypes
     if isinstance_or_issubclass(dtype, dtypes.Decimal):
         msg = "Casting to Decimal is not supported yet."
@@ -199,7 +200,17 @@ def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> pa.DataType:
         return pa.dictionary(pa.uint32(), pa.string())
     if isinstance_or_issubclass(dtype, dtypes.Datetime):
         unit = dtype.time_unit
-        return pa.timestamp(unit, tz) if (tz := dtype.time_zone) else pa.timestamp(unit)
+
+        if False:
+            tz = NotImplemented
+
+        def _walrus_wrapper_tz_fa97bbd71124427296a5d86f29b1307e(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal tz
+            tz = expr
+            return tz
+
+        return pa.timestamp(unit, tz) if (_walrus_wrapper_tz_fa97bbd71124427296a5d86f29b1307e(dtype.time_zone)) else pa.timestamp(unit)
     if isinstance_or_issubclass(dtype, dtypes.Duration):
         return pa.duration(dtype.time_unit)
     if isinstance_or_issubclass(dtype, dtypes.Date):
@@ -376,13 +387,35 @@ def parse_datetime_format(arr: ChunkedArrayAny) -> str:
 def _parse_date_format(arr: pc.StringArray) -> str:
     for date_rgx, date_fmt in DATE_FORMATS:
         matches = pc.extract_regex(arr, pattern=date_rgx)
+
+        if False:
+            date_sep_value = sep1 = sep2 = NotImplemented
+
+        def _walrus_wrapper_date_sep_value_1dc341b00cce4bca9959e92410e5a99d(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal date_sep_value
+            date_sep_value = expr
+            return date_sep_value
+
+        def _walrus_wrapper_sep1_aba8cb9d156a43219c54cf2ab22e879e(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal sep1
+            sep1 = expr
+            return sep1
+
+        def _walrus_wrapper_sep2_b0a1afe54fc64a209fdbf14fbd9f5010(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal sep2
+            sep2 = expr
+            return sep2
+
         if date_fmt == "%Y%m%d" and pc.all(matches.is_valid()).as_py():
             return date_fmt
         elif (
             pc.all(matches.is_valid()).as_py()
-            and pc.count(pc.unique(sep1 := matches.field("sep1"))).as_py() == 1
-            and pc.count(pc.unique(sep2 := matches.field("sep2"))).as_py() == 1
-            and (date_sep_value := sep1[0].as_py()) == sep2[0].as_py()
+            and pc.count(pc.unique(_walrus_wrapper_sep1_aba8cb9d156a43219c54cf2ab22e879e(matches.field("sep1")))).as_py() == 1
+            and pc.count(pc.unique(_walrus_wrapper_sep2_b0a1afe54fc64a209fdbf14fbd9f5010(matches.field("sep2")))).as_py() == 1
+            and (_walrus_wrapper_date_sep_value_1dc341b00cce4bca9959e92410e5a99d(sep1[0].as_py())) == sep2[0].as_py()
         ):
             return date_fmt.replace("-", date_sep_value)
 

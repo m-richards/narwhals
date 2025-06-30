@@ -305,7 +305,17 @@ class IbisLazyFrame(
         rname = "{name}" + suffix
         strategy_op = {"backward": operator.ge, "forward": operator.le}
         predicates: JoinPredicates = []
-        if op := strategy_op.get(strategy):
+
+        if False:
+            op = NotImplemented
+
+        def _walrus_wrapper_op_05e4c211b59f497484d0a52d18752e0b(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal op
+            op = expr
+            return op
+
+        if _walrus_wrapper_op_05e4c211b59f497484d0a52d18752e0b(strategy_op.get(strategy)):
             on: ir.BooleanColumn = op(self.native[left_on], other.native[right_on])
         else:
             msg = "Only `backward` and `forward` strategies are currently supported for Ibis"
@@ -338,7 +348,16 @@ class IbisLazyFrame(
     def unique(
         self, subset: Sequence[str] | None, *, keep: LazyUniqueKeepStrategy
     ) -> Self:
-        if subset_ := subset if keep == "any" else (subset or self.columns):
+        if False:
+            subset_ = NotImplemented
+
+        def _walrus_wrapper_subset__4a6f73f01af444299431b4448b3de2ae(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal subset_
+            subset_ = expr
+            return subset_
+
+        if _walrus_wrapper_subset__4a6f73f01af444299431b4448b3de2ae(subset if keep == "any" else (subset or self.columns)):
             # Sanitise input
             if any(x not in self.columns for x in subset_):
                 msg = f"Columns {set(subset_).difference(self.columns)} not found in {self.columns}."
