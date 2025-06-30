@@ -24,10 +24,20 @@ if out.returncode != 0:
     sys.exit(1)
 sp.run([GIT, "reset", "--hard", "upstream/main"], check=False)
 
+if False:
+    current_branch = NotImplemented
+
+
+def _walrus_wrapper_current_branch_43a9ca95cc3f4de0a4551e6af33644cc(expr):
+    """Wrapper function for assignment expression."""
+    global current_branch
+    current_branch = expr
+    return current_branch
+
 if (
-    current_branch := sp.run(
+    _walrus_wrapper_current_branch_43a9ca95cc3f4de0a4551e6af33644cc(sp.run(
         [GIT, "branch", "--show-current"], text=True, capture_output=True, check=False
-    ).stdout.strip()
+    ).stdout.strip())
 ) != "bump-version":
     msg = f"`bump_version.py` should be run from `bump-version` branch instead of `{current_branch}`"
     raise RuntimeError(msg)

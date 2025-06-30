@@ -146,9 +146,25 @@ def set_index(
 
     We can set `copy` / `inplace` based on implementation/version.
     """
+
+    if False:
+        actual_len = expected_len = NotImplemented
+
+    def _walrus_wrapper_actual_len_ba9d7fad8407427a8ce67dae5d4f5c99(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal actual_len
+        actual_len = expr
+        return actual_len
+
+    def _walrus_wrapper_expected_len_4fb8c3fb7d364de39396edb80a1e7eac(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal expected_len
+        expected_len = expr
+        return expected_len
+
     if isinstance(index, implementation.to_native_namespace().Index) and (
-        expected_len := len(index)
-    ) != (actual_len := len(obj)):
+        _walrus_wrapper_expected_len_4fb8c3fb7d364de39396edb80a1e7eac(len(index))
+    ) != (_walrus_wrapper_actual_len_ba9d7fad8407427a8ce67dae5d4f5c99(len(obj))):
         msg = f"Expected object of length {expected_len}, got length: {actual_len}"
         raise ShapeError(msg)
     if implementation is Implementation.CUDF:
@@ -179,7 +195,8 @@ def rename(
 
 
 @functools.lru_cache(maxsize=16)
-def non_object_native_to_narwhals_dtype(native_dtype: Any, version: Version) -> DType:  # noqa: C901, PLR0912
+def non_object_native_to_narwhals_dtype(native_dtype: Any, version: Version) -> DType:
+    # noqa: C901, PLR0912
     dtype = str(native_dtype)
 
     dtypes = version.dtypes
@@ -223,14 +240,42 @@ def non_object_native_to_narwhals_dtype(native_dtype: Any, version: Version) -> 
         return dtypes.Categorical()
     if dtype == "category":
         return native_categorical_to_narwhals_dtype(native_dtype, version)
-    if (match_ := PATTERN_PD_DATETIME.match(dtype)) or (
-        match_ := PATTERN_PA_DATETIME.match(dtype)
+
+    if False:
+        match_ = NotImplemented
+
+    def _walrus_wrapper_match__e61cd9fbc2d04762aa322fd98f141d8b(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal match_
+        match_ = expr
+        return match_
+
+    def _walrus_wrapper_match__6e7734b414ab45cb80c3a0e6cad38d39(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal match_
+        match_ = expr
+        return match_
+
+    def _walrus_wrapper_match__ad4ed61acc594856ba1d49902dbb3090(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal match_
+        match_ = expr
+        return match_
+
+    def _walrus_wrapper_match__4c617af89c6c44a8a82b2a9157ca736f(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal match_
+        match_ = expr
+        return match_
+
+    if (_walrus_wrapper_match__e61cd9fbc2d04762aa322fd98f141d8b(PATTERN_PD_DATETIME.match(dtype))) or (
+        _walrus_wrapper_match__6e7734b414ab45cb80c3a0e6cad38d39(PATTERN_PA_DATETIME.match(dtype))
     ):
         dt_time_unit: TimeUnit = match_.group("time_unit")  # type: ignore[assignment]
         dt_time_zone: str | None = match_.group("time_zone")
         return dtypes.Datetime(dt_time_unit, dt_time_zone)
-    if (match_ := PATTERN_PD_DURATION.match(dtype)) or (
-        match_ := PATTERN_PA_DURATION.match(dtype)
+    if (_walrus_wrapper_match__ad4ed61acc594856ba1d49902dbb3090(PATTERN_PD_DURATION.match(dtype))) or (
+        _walrus_wrapper_match__4c617af89c6c44a8a82b2a9157ca736f(PATTERN_PA_DURATION.match(dtype))
     ):
         du_time_unit: TimeUnit = match_.group("time_unit")  # type: ignore[assignment]
         return dtypes.Duration(du_time_unit)
@@ -473,10 +518,28 @@ def narwhals_to_native_dtype(  # noqa: C901, PLR0912, PLR0915
             dt_time_unit = dtype.time_unit
 
         if dtype_backend == "pyarrow":
-            tz_part = f", tz={tz}" if (tz := dtype.time_zone) else ""
+            if False:
+                tz = NotImplemented
+
+            def _walrus_wrapper_tz_a812eac89e0749bc8a32b6205732ac4e(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal tz
+                tz = expr
+                return tz
+
+            tz_part = f", tz={tz}" if (_walrus_wrapper_tz_a812eac89e0749bc8a32b6205732ac4e(dtype.time_zone)) else ""
             return f"timestamp[{dt_time_unit}{tz_part}][pyarrow]"
         else:
-            tz_part = f", {tz}" if (tz := dtype.time_zone) else ""
+            if False:
+                tz = NotImplemented
+
+            def _walrus_wrapper_tz_47332ef8e6734a368c302b31c3af29b1(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal tz
+                tz = expr
+                return tz
+
+            tz_part = f", {tz}" if (_walrus_wrapper_tz_47332ef8e6734a368c302b31c3af29b1(dtype.time_zone)) else ""
             return f"datetime64[{dt_time_unit}{tz_part}]"
     if isinstance_or_issubclass(dtype, dtypes.Duration):
         if implementation is Implementation.PANDAS and backend_version < (
@@ -605,13 +668,32 @@ def select_columns_by_name(
     ):
         # See https://github.com/narwhals-dev/narwhals/issues/1349#issuecomment-2470118122
         # for why we need this
-        if error := check_columns_exist(column_names, available=df.columns.tolist()):
+
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_b127d945e81147ff8afce28ea5f7da70(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+
+        if _walrus_wrapper_error_b127d945e81147ff8afce28ea5f7da70(check_columns_exist(column_names, available=df.columns.tolist())):
             raise error
         return df.loc[:, column_names]
     try:
         return df[column_names]
     except KeyError as e:
-        if error := check_columns_exist(column_names, available=df.columns.tolist()):
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_1869d0da526b4855beed778fb8f28588(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+
+        if _walrus_wrapper_error_1869d0da526b4855beed778fb8f28588(check_columns_exist(column_names, available=df.columns.tolist())):
             raise error from e
         raise
 

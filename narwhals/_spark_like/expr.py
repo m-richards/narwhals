@@ -488,10 +488,19 @@ class SparkLikeExpr(LazyExpr["SparkLikeLazyFrame", "Column"]):
 
     def median(self) -> Self:
         def _median(expr: Column) -> Column:
+            if False:
+                pyspark = NotImplemented
+
+            def _walrus_wrapper_pyspark_65677a92abc9487c8cb06996509ddb79(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal pyspark
+                pyspark = expr
+                return pyspark
+
             if (
                 self._implementation
                 in {Implementation.PYSPARK, Implementation.PYSPARK_CONNECT}
-                and (pyspark := get_pyspark()) is not None
+                and (_walrus_wrapper_pyspark_65677a92abc9487c8cb06996509ddb79(get_pyspark())) is not None
                 and parse_version(pyspark) < (3, 4)
             ):  # pragma: no cover
                 # Use percentile_approx with default accuracy parameter (10000)

@@ -38,7 +38,17 @@ def parse_interval_string(every: str) -> tuple[int, IntervalUnit]:
     Returns:
         A tuple of multiple and unit parsed from the interval string.
     """
-    if match := PATTERN_INTERVAL.match(every):
+
+    if False:
+        match = NotImplemented
+
+    def _walrus_wrapper_match_b4a97e4d6b5245998634b2734e483952(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal match
+        match = expr
+        return match
+
+    if _walrus_wrapper_match_b4a97e4d6b5245998634b2734e483952(PATTERN_INTERVAL.match(every)):
         multiple = int(match["multiple"])
         unit = cast("IntervalUnit", match["unit"])
         if unit == "mo" and multiple not in MONTH_MULTIPLES:

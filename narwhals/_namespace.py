@@ -391,13 +391,31 @@ class Namespace(Generic[CompliantNamespaceT_co]):
 
 
 def is_native_polars(obj: Any) -> TypeIs[_NativePolars]:
-    return (pl := get_polars()) is not None and isinstance(
+    if False:
+        pl = NotImplemented
+
+    def _walrus_wrapper_pl_3410cb8bcb574a3e9bcc0cb98dcb52f4(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pl
+        pl = expr
+        return pl
+
+    return (_walrus_wrapper_pl_3410cb8bcb574a3e9bcc0cb98dcb52f4(get_polars())) is not None and isinstance(
         obj, (pl.DataFrame, pl.Series, pl.LazyFrame)
     )
 
 
 def is_native_arrow(obj: Any) -> TypeIs[_NativeArrow]:
-    return (pa := get_pyarrow()) is not None and isinstance(
+    if False:
+        pa = NotImplemented
+
+    def _walrus_wrapper_pa_991d39204d98441c8c3c510f0d8c20b6(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pa
+        pa = expr
+        return pa
+
+    return (_walrus_wrapper_pa_991d39204d98441c8c3c510f0d8c20b6(get_pyarrow())) is not None and isinstance(
         obj, (pa.Table, pa.ChunkedArray)
     )
 
@@ -413,17 +431,44 @@ is_native_pyspark_connect: _Guard[_NativePySparkConnect] = is_pyspark_connect_da
 
 
 def is_native_pandas(obj: Any) -> TypeIs[_NativePandas]:
-    return (pd := get_pandas()) is not None and isinstance(obj, (pd.DataFrame, pd.Series))
+    if False:
+        pd = NotImplemented
+
+    def _walrus_wrapper_pd_2673602355ff4c419c8de64fcf378743(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    return (_walrus_wrapper_pd_2673602355ff4c419c8de64fcf378743(get_pandas())) is not None and isinstance(obj, (pd.DataFrame, pd.Series))
 
 
 def is_native_modin(obj: Any) -> TypeIs[_NativeModin]:
-    return (mpd := get_modin()) is not None and isinstance(
+    if False:
+        mpd = NotImplemented
+
+    def _walrus_wrapper_mpd_1b6d1b67fb6c47d5b579f663eb7c7eb5(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal mpd
+        mpd = expr
+        return mpd
+
+    return (_walrus_wrapper_mpd_1b6d1b67fb6c47d5b579f663eb7c7eb5(get_modin())) is not None and isinstance(
         obj, (mpd.DataFrame, mpd.Series)
     )  # pragma: no cover
 
 
 def is_native_cudf(obj: Any) -> TypeIs[_NativeCuDF]:
-    return (cudf := get_cudf()) is not None and isinstance(
+    if False:
+        cudf = NotImplemented
+
+    def _walrus_wrapper_cudf_0d079c24963540648f54d36f17a32cac(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal cudf
+        cudf = expr
+        return cudf
+
+    return (_walrus_wrapper_cudf_0d079c24963540648f54d36f17a32cac(get_cudf())) is not None and isinstance(
         obj, (cudf.DataFrame, cudf.Series)
     )  # pragma: no cover
 

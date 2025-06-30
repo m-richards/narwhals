@@ -721,10 +721,18 @@ def narwhalify(
                 for name, value in kwargs.items()
             }
 
+            if False:
+                b = NotImplemented
+
+            def _walrus_wrapper_b_433cf2b15ccf46648fb9a1ae67f2b040(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal b
+                b = expr
+                return b
             backends = {
                 b()
                 for v in (*args, *kwargs.values())
-                if (b := getattr(v, "__native_namespace__", None))
+                if (_walrus_wrapper_b_433cf2b15ccf46648fb9a1ae67f2b040(getattr(v, "__native_namespace__", None)))
             }
 
             if len(backends) > 1:
@@ -771,10 +779,20 @@ def to_py_scalar(scalar_like: Any) -> Any:
     """
     scalar: Any
     pd = get_pandas()
+
+    if False:
+        np = NotImplemented
+
+    def _walrus_wrapper_np_8e036b93656a4bba97c41d3c4c07e459(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal np
+        np = expr
+        return np
+
     if scalar_like is None or isinstance(scalar_like, NON_TEMPORAL_SCALAR_TYPES):
         scalar = scalar_like
     elif (
-        (np := get_numpy())
+        (_walrus_wrapper_np_8e036b93656a4bba97c41d3c4c07e459(get_numpy()))
         and isinstance(scalar_like, np.datetime64)
         and scalar_like.dtype == "datetime64[ns]"
     ):
@@ -804,7 +822,16 @@ def to_py_scalar(scalar_like: Any) -> Any:
 
 
 def _is_pandas_na(obj: Any) -> bool:
-    return bool((pd := get_pandas()) and pd.api.types.is_scalar(obj) and pd.isna(obj))
+    if False:
+        pd = NotImplemented
+
+    def _walrus_wrapper_pd_e7fa1abf500a4e02ad2bbe18d70b7630(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    return bool((_walrus_wrapper_pd_e7fa1abf500a4e02ad2bbe18d70b7630(get_pandas())) and pd.api.types.is_scalar(obj) and pd.isna(obj))
 
 
 __all__ = ["get_native_namespace", "narwhalify", "to_native", "to_py_scalar"]

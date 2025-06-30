@@ -340,7 +340,16 @@ class ArrowDataFrame(
     def _extract_comparand(self, other: ArrowSeries) -> ChunkedArrayAny:
         length = len(self)
         if not other._broadcast:
-            if (len_other := len(other)) != length:
+            if False:
+                len_other = NotImplemented
+
+            def _walrus_wrapper_len_other_17906b2add1c4bc1ac4cd741c8e9327b(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal len_other
+                len_other = expr
+                return len_other
+
+            if (_walrus_wrapper_len_other_17906b2add1c4bc1ac4cd741c8e9327b(len(other))) != length:
                 msg = f"Expected object of length {length}, got: {len_other}."
                 raise ShapeError(msg)
             return other.native
@@ -684,7 +693,15 @@ class ArrowDataFrame(
         # and has no effect on the output.
         import numpy as np  # ignore-banned-import
 
-        if subset and (error := self._check_columns_exist(subset)):
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_c0153a5274fa44d0bceaf19bc5479e80(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+        if subset and (_walrus_wrapper_error_c0153a5274fa44d0bceaf19bc5479e80(self._check_columns_exist(subset))):
             raise error
         subset = list(subset or self.columns)
 

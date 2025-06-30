@@ -90,7 +90,16 @@ def test_stable_api_completeness() -> None:
 def test_stable_api_docstrings() -> None:
     main_namespace_api = nw.__all__
     for item in main_namespace_api:
-        if (doc := getdoc(getattr(nw, item))) is None:
+        if False:
+            doc = NotImplemented
+
+        def _walrus_wrapper_doc_726090cd3e6e46d18362f982a1c234bc(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal doc
+            doc = expr
+            return doc
+
+        if (_walrus_wrapper_doc_726090cd3e6e46d18362f982a1c234bc(getdoc(getattr(nw, item)))) is None:
             continue
         if item in {"from_native", "narwhalify", "get_level"}:
             # `eager_or_interchange` param was removed from main namespace,
@@ -107,10 +116,19 @@ def test_stable_api_docstrings() -> None:
 
 def _iter_api_method_docs(obj: Any, *exclude: str) -> Iterator[tuple[str, str]]:
     for name in dir(obj):
+        if False:
+            doc = NotImplemented
+
+        def _walrus_wrapper_doc_8a29a7822dad49a79c0de62beab04a35(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal doc
+            doc = expr
+            return doc
+
         if (
             not name.startswith("_")
             and name not in exclude
-            and (doc := getdoc(getattr(obj, name)))
+            and (_walrus_wrapper_doc_8a29a7822dad49a79c0de62beab04a35(getdoc(getattr(obj, name))))
         ):
             yield name, doc
 

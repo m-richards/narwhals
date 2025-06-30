@@ -101,11 +101,114 @@ top_level_functions = [
 ]
 
 documented = read_documented_members(DIR_API_REF / "narwhals.md")
-if missing := set(top_level_functions).difference(documented).difference({"annotations"}):
+
+if False:
+    extra = missing = NotImplemented
+
+
+def _walrus_wrapper_extra_9b075e827c2a46cfadcb6aeef94caab2(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_a88268b909a049b589fd28e8d721975d(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_93b33839ca604ca1847690458e367277(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_05fd5d86b22a4fee9e89f19ce5d40dcc(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_030df60d45034ab192c934b6c2999d64(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_90db61f433b14821aaf826314c3eddd9(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_extra_d684b3976ddf43d886eb652ba7c6caae(expr):
+    """Wrapper function for assignment expression."""
+    global extra
+    extra = expr
+    return extra
+
+
+def _walrus_wrapper_missing_1282e276932e4d90ba62a3672c967b1a(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_d816c4594f0740eb8ca4d863b9e132cf(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_214448f7bcd6488d8506bac8751fdb1c(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_2f20f894a02443c3a42cb2becc824719(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_515fdc41045b4596a56b79d00e61f4d4(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_ea73fef3bfe840399253a91e9c083057(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+def _walrus_wrapper_missing_18517b8768454d4db0d50e1600b12e8c(expr):
+    """Wrapper function for assignment expression."""
+    global missing
+    missing = expr
+    return missing
+
+
+if _walrus_wrapper_missing_1282e276932e4d90ba62a3672c967b1a(set(top_level_functions).difference(documented).difference({"annotations"})):
     print("top-level functions: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(top_level_functions):
+if _walrus_wrapper_extra_9b075e827c2a46cfadcb6aeef94caab2(set(documented).difference(top_level_functions)):
     print("top-level functions: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -113,11 +216,11 @@ if extra := set(documented).difference(top_level_functions):
 # DataFrame methods
 dataframe_methods = list(iter_api_reference_names(nw.DataFrame))
 documented = read_documented_members(DIR_API_REF / "dataframe.md")
-if missing := set(dataframe_methods).difference(documented):
+if _walrus_wrapper_missing_d816c4594f0740eb8ca4d863b9e132cf(set(dataframe_methods).difference(documented)):
     print("DataFrame: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(dataframe_methods):
+if _walrus_wrapper_extra_a88268b909a049b589fd28e8d721975d(set(documented).difference(dataframe_methods)):
     print("DataFrame: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -125,11 +228,11 @@ if extra := set(documented).difference(dataframe_methods):
 # LazyFrame methods
 lazyframe_methods = list(iter_api_reference_names(nw.LazyFrame))
 documented = read_documented_members(DIR_API_REF / "lazyframe.md")
-if missing := set(lazyframe_methods).difference(documented):
+if _walrus_wrapper_missing_214448f7bcd6488d8506bac8751fdb1c(set(lazyframe_methods).difference(documented)):
     print("LazyFrame: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(lazyframe_methods):
+if _walrus_wrapper_extra_93b33839ca604ca1847690458e367277(set(documented).difference(lazyframe_methods)):
     print("LazyFrame: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -137,11 +240,11 @@ if extra := set(documented).difference(lazyframe_methods):
 # Series methods
 series_methods = list(iter_api_reference_names(nw.Series))
 documented = read_documented_members(DIR_API_REF / "series.md")
-if missing := set(series_methods).difference(documented).difference(NAMESPACES):
+if _walrus_wrapper_missing_2f20f894a02443c3a42cb2becc824719(set(series_methods).difference(documented).difference(NAMESPACES)):
     print("Series: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(series_methods):
+if _walrus_wrapper_extra_05fd5d86b22a4fee9e89f19ce5d40dcc(set(documented).difference(series_methods)):
     print("Series: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -154,11 +257,27 @@ for namespace in NAMESPACES.difference({"name"}):
         if not i[0].isupper() and i[0] != "_"
     ]
     documented = read_documented_members(DIR_API_REF / f"series_{namespace}.md")
-    if missing := set(series_ns_methods).difference(documented):
+
+    if False:
+        extra = missing = NotImplemented
+
+    def _walrus_wrapper_extra_6b5a5482a36344e0a82a06ed8e93887b(expr):
+        """Wrapper function for assignment expression."""
+        global extra
+        extra = expr
+        return extra
+
+    def _walrus_wrapper_missing_0876ce92e7654302b44cebee8a0abaa3(expr):
+        """Wrapper function for assignment expression."""
+        global missing
+        missing = expr
+        return missing
+
+    if _walrus_wrapper_missing_0876ce92e7654302b44cebee8a0abaa3(set(series_ns_methods).difference(documented)):
         print(f"Series.{namespace}: not documented")  # noqa: T201
         print(missing)  # noqa: T201
         ret = 1
-    if extra := set(documented).difference(series_ns_methods):
+    if _walrus_wrapper_extra_6b5a5482a36344e0a82a06ed8e93887b(set(documented).difference(series_ns_methods)):
         print(f"Series.{namespace}: outdated")  # noqa: T201
         print(extra)  # noqa: T201
         ret = 1
@@ -166,11 +285,11 @@ for namespace in NAMESPACES.difference({"name"}):
 # Expr methods
 expr_methods = list(iter_api_reference_names(nw.Expr))
 documented = read_documented_members(DIR_API_REF / "expr.md")
-if missing := set(expr_methods).difference(documented).difference(NAMESPACES):
+if _walrus_wrapper_missing_515fdc41045b4596a56b79d00e61f4d4(set(expr_methods).difference(documented).difference(NAMESPACES)):
     print("Expr: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(expr_methods):
+if _walrus_wrapper_extra_030df60d45034ab192c934b6c2999d64(set(documented).difference(expr_methods)):
     print("Expr: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -183,11 +302,27 @@ for namespace in NAMESPACES:
         if not i[0].isupper() and i[0] != "_"
     ]
     documented = read_documented_members(DIR_API_REF / f"expr_{namespace}.md")
-    if missing := set(expr_ns_methods).difference(documented):
+
+    if False:
+        extra = missing = NotImplemented
+
+    def _walrus_wrapper_extra_6c4c9da8857548af97b45f419a69daf4(expr):
+        """Wrapper function for assignment expression."""
+        global extra
+        extra = expr
+        return extra
+
+    def _walrus_wrapper_missing_a8df35b672414859b063354bc331f6db(expr):
+        """Wrapper function for assignment expression."""
+        global missing
+        missing = expr
+        return missing
+
+    if _walrus_wrapper_missing_a8df35b672414859b063354bc331f6db(set(expr_ns_methods).difference(documented)):
         print(f"Expr.{namespace}: not documented")  # noqa: T201
         print(missing)  # noqa: T201
         ret = 1
-    if extra := set(documented).difference(expr_ns_methods):
+    if _walrus_wrapper_extra_6c4c9da8857548af97b45f419a69daf4(set(documented).difference(expr_ns_methods)):
         print(f"Expr.{namespace}: outdated")  # noqa: T201
         print(extra)  # noqa: T201
         ret = 1
@@ -195,21 +330,21 @@ for namespace in NAMESPACES:
 # DTypes
 dtypes = [i for i in dir(nw.dtypes) if i[0].isupper() and not i.isupper() and i[0] != "_"]
 documented = read_documented_members(DIR_API_REF / "dtypes.md")
-if missing := set(dtypes).difference(documented).difference(BASE_DTYPES):
+if _walrus_wrapper_missing_ea73fef3bfe840399253a91e9c083057(set(dtypes).difference(documented).difference(BASE_DTYPES)):
     print("Dtype: not documented")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(documented).difference(dtypes):
+if _walrus_wrapper_extra_90db61f433b14821aaf826314c3eddd9(set(documented).difference(dtypes)):
     print("Dtype: outdated")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
 
 # Check Expr vs Series
-if missing := set(expr_methods).difference(series_methods).difference(EXPR_ONLY_METHODS):
+if _walrus_wrapper_missing_18517b8768454d4db0d50e1600b12e8c(set(expr_methods).difference(series_methods).difference(EXPR_ONLY_METHODS)):
     print("In Expr but not in Series")  # noqa: T201
     print(missing)  # noqa: T201
     ret = 1
-if extra := set(series_methods).difference(expr_methods).difference(SERIES_ONLY_METHODS):
+if _walrus_wrapper_extra_d684b3976ddf43d886eb652ba7c6caae(set(series_methods).difference(expr_methods).difference(SERIES_ONLY_METHODS)):
     print("In Series but not in Expr")  # noqa: T201
     print(extra)  # noqa: T201
     ret = 1
@@ -226,11 +361,27 @@ for namespace in NAMESPACES.difference({"name"}):
         for i in dir(getattr(nw.from_native(pl.Series(), series_only=True), namespace))
         if not i[0].isupper() and i[0] != "_"
     ]
-    if missing := set(expr_internal).difference(series_internal):
+
+    if False:
+        extra = missing = NotImplemented
+
+    def _walrus_wrapper_extra_1bd268482a4f4d1491d7ce9269e22f1b(expr):
+        """Wrapper function for assignment expression."""
+        global extra
+        extra = expr
+        return extra
+
+    def _walrus_wrapper_missing_1399b555bf51465bb8f53b32ae15bf40(expr):
+        """Wrapper function for assignment expression."""
+        global missing
+        missing = expr
+        return missing
+
+    if _walrus_wrapper_missing_1399b555bf51465bb8f53b32ae15bf40(set(expr_internal).difference(series_internal)):
         print(f"In Expr.{namespace} but not in Series.{namespace}")  # noqa: T201
         print(missing)  # noqa: T201
         ret = 1
-    if extra := set(series_internal).difference(expr_internal):
+    if _walrus_wrapper_extra_1bd268482a4f4d1491d7ce9269e22f1b(set(series_internal).difference(expr_internal)):
         print(f"In Series.{namespace} but not in Expr.{namespace}")  # noqa: T201
         print(extra)  # noqa: T201
         ret = 1

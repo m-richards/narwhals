@@ -89,9 +89,19 @@ class ArrowSeriesDateTimeNamespace(ArrowSeriesNamespace):
         if isinstance(ser.dtype, dtypes.Datetime):
             current = ser.dtype.time_unit
             s_cast = self.native.cast(pa.int64())
+
+            if False:
+                item = NotImplemented
+
+            def _walrus_wrapper_item_25591a4de8af4920863297605c1bd7ab(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal item
+                item = expr
+                return item
+
             if current == time_unit:
                 result = s_cast
-            elif item := self._TIMESTAMP_DATETIME_OP_FACTOR.get((current, time_unit)):
+            elif _walrus_wrapper_item_25591a4de8af4920863297605c1bd7ab(self._TIMESTAMP_DATETIME_OP_FACTOR.get((current, time_unit))):
                 fn, factor = item
                 result = fn(s_cast, lit(factor))
             else:  # pragma: no cover

@@ -114,7 +114,16 @@ class DaskExpr(
                     for column_name in evaluate_column_names(df)
                 ]
             except KeyError as e:
-                if error := df._check_columns_exist(evaluate_column_names(df)):
+                if False:
+                    error = NotImplemented
+
+                def _walrus_wrapper_error_6bbf8b602f5a4752bd598fa57b3c6f23(expr):
+                    """Wrapper function for assignment expression."""
+                    nonlocal error
+                    error = expr
+                    return error
+
+                if _walrus_wrapper_error_6bbf8b602f5a4752bd598fa57b3c6f23(df._check_columns_exist(evaluate_column_names(df))):
                     raise error from e
                 raise
 

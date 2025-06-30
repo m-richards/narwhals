@@ -960,11 +960,21 @@ class PandasLikeSeries(EagerSeries[Any]):
     def rank(self, method: RankMethod, *, descending: bool) -> Self:
         pd_method = "first" if method == "ordinal" else method
         name = self.name
+
+        if False:
+            null_mask = NotImplemented
+
+        def _walrus_wrapper_null_mask_49d35751798241c9b9687ff2b8df25a0(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal null_mask
+            null_mask = expr
+            return null_mask
+
         if (
             self._implementation is Implementation.PANDAS
             and self._backend_version < (3,)
             and self.dtype.is_integer()
-            and (null_mask := self.native.isna()).any()
+            and (_walrus_wrapper_null_mask_49d35751798241c9b9687ff2b8df25a0(self.native.isna())).any()
         ):
             # crazy workaround for the case of `na_option="keep"` and nullable
             # integer dtypes. This should be supported in pandas > 3.0

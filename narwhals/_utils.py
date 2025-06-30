@@ -626,7 +626,16 @@ _IMPLEMENTATION_TO_MODULE_NAME: Mapping[Implementation, str] = {
 def validate_backend_version(
     implementation: Implementation, backend_version: tuple[int, ...]
 ) -> None:
-    if backend_version < (min_version := MIN_VERSIONS[implementation]):
+    if False:
+        min_version = NotImplemented
+
+    def _walrus_wrapper_min_version_1f41b5df408540f7ae5a6fac0895e5de(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal min_version
+        min_version = expr
+        return min_version
+
+    if backend_version < (_walrus_wrapper_min_version_1f41b5df408540f7ae5a6fac0895e5de(MIN_VERSIONS[implementation])):
         msg = f"Minimum version of {implementation} supported by Narwhals is {min_version}, found: {backend_version}"
         raise ValueError(msg)
 
@@ -651,10 +660,24 @@ def tupleify(arg: Any) -> Any:
 def _is_iterable(arg: Any | Iterable[Any]) -> bool:
     from narwhals.series import Series
 
+    if False:
+        pd = pl = NotImplemented
+
+    def _walrus_wrapper_pd_25d1347b13d24c68a827d0e109c584f2(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pd
+        pd = expr
+        return pd
+
+    def _walrus_wrapper_pl_35212fd0bc414a179c3ea616e947009c(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal pl
+        pl = expr
+        return pl
     if (
-        (pd := get_pandas()) is not None and isinstance(arg, (pd.Series, pd.DataFrame))
+        (_walrus_wrapper_pd_25d1347b13d24c68a827d0e109c584f2(get_pandas())) is not None and isinstance(arg, (pd.Series, pd.DataFrame))
     ) or (
-        (pl := get_polars()) is not None
+        (_walrus_wrapper_pl_35212fd0bc414a179c3ea616e947009c(get_polars())) is not None
         and isinstance(arg, (pl.Series, pl.Expr, pl.DataFrame, pl.LazyFrame))
     ):
         # Non-exhaustive check for common potential mistakes.
@@ -1310,7 +1333,17 @@ def parse_columns_to_drop(
     if not strict:
         return list(set(frame.columns).intersection(subset))
     to_drop = list(subset)
-    if error := check_columns_exist(to_drop, available=frame.columns):
+
+    if False:
+        error = NotImplemented
+
+    def _walrus_wrapper_error_6bca8c1a595f433a848ee42f7fc458b6(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal error
+        error = expr
+        return error
+
+    if _walrus_wrapper_error_6bca8c1a595f433a848ee42f7fc458b6(check_columns_exist(to_drop, available=frame.columns)):
         raise error
     return to_drop
 
@@ -1381,9 +1414,19 @@ def is_list_of(obj: Any, tp: type[_T]) -> TypeIs[list[_T]]:
 
 def is_sequence_of(obj: Any, tp: type[_T]) -> TypeIs[Sequence[_T]]:
     # Check if an object is a sequence of `tp`, only sniffing the first element.
+
+    if False:
+        first = NotImplemented
+
+    def _walrus_wrapper_first_3b353d75675e499cb19ec8d99e85830f(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal first
+        first = expr
+        return first
+
     return bool(
         is_sequence_but_not_str(obj)
-        and (first := next(iter(obj), None))
+        and (_walrus_wrapper_first_3b353d75675e499cb19ec8d99e85830f(next(iter(obj), None)))
         and isinstance(first, tp)
     )
 
@@ -1410,8 +1453,18 @@ def find_stacklevel() -> int:
     try:
         while frame:
             fname = inspect.getfile(frame)
+
+            if False:
+                qualname = NotImplemented
+
+            def _walrus_wrapper_qualname_24ca406fd9d74d0f9e5401b5fe65b12a(expr):
+                """Wrapper function for assignment expression."""
+                nonlocal qualname
+                qualname = expr
+                return qualname
+
             if fname.startswith(pkg_dir) or (
-                (qualname := getattr(frame.f_code, "co_qualname", None))
+                (_walrus_wrapper_qualname_24ca406fd9d74d0f9e5401b5fe65b12a(getattr(frame.f_code, "co_qualname", None)))
                 # ignore @singledispatch wrappers
                 and qualname.startswith("singledispatch.")
             ):
@@ -1565,7 +1618,16 @@ def generate_repr(header: str, native_repr: str) -> str:
 def check_columns_exist(
     subset: Collection[str], /, *, available: Collection[str]
 ) -> ColumnNotFoundError | None:
-    if missing := set(subset).difference(available):
+    if False:
+        missing = NotImplemented
+
+    def _walrus_wrapper_missing_116855c6d50649859da4e289f12444ff(expr):
+        """Wrapper function for assignment expression."""
+        nonlocal missing
+        missing = expr
+        return missing
+
+    if _walrus_wrapper_missing_116855c6d50649859da4e289f12444ff(set(subset).difference(available)):
         return ColumnNotFoundError.from_missing_and_available_column_names(
             missing, available
         )

@@ -90,7 +90,8 @@ def validate_comparand(lhs: dx.Series, rhs: dx.Series) -> None:
         raise RuntimeError(msg)
 
 
-def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> Any:  # noqa: C901, PLR0912
+def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> Any:
+    # noqa: C901, PLR0912
     dtypes = version.dtypes
     if isinstance_or_issubclass(dtype, dtypes.Float64):
         return "float64"
@@ -113,7 +114,16 @@ def narwhals_to_native_dtype(dtype: IntoDType, version: Version) -> Any:  # noqa
     if isinstance_or_issubclass(dtype, dtypes.UInt8):
         return "uint8"
     if isinstance_or_issubclass(dtype, dtypes.String):
-        if (pd := get_pandas()) is not None and parse_version(pd) >= (2, 0, 0):
+        if False:
+            pd = NotImplemented
+
+        def _walrus_wrapper_pd_7311ef8f0e674f1eb03c7c15f445a6a5(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal pd
+            pd = expr
+            return pd
+
+        if (_walrus_wrapper_pd_7311ef8f0e674f1eb03c7c15f445a6a5(get_pandas())) is not None and parse_version(pd) >= (2, 0, 0):
             if get_pyarrow() is not None:
                 return "string[pyarrow]"
             return "string[python]"  # pragma: no cover

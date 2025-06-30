@@ -248,7 +248,16 @@ class DaskLazyFrame(
     def unique(
         self, subset: Sequence[str] | None, *, keep: LazyUniqueKeepStrategy
     ) -> Self:
-        if subset and (error := self._check_columns_exist(subset)):
+        if False:
+            error = NotImplemented
+
+        def _walrus_wrapper_error_ec1727254182494cb707f38da4a286cc(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal error
+            error = expr
+            return error
+
+        if subset and (_walrus_wrapper_error_ec1727254182494cb707f38da4a286cc(self._check_columns_exist(subset))):
             raise error
         if keep == "none":
             subset = subset or self.columns

@@ -771,7 +771,16 @@ def scan_csv(
 
         native_frame = csv.read_csv(source, **kwargs)
     elif implementation.is_spark_like():
-        if (session := kwargs.pop("session", None)) is None:
+        if False:
+            session = NotImplemented
+
+        def _walrus_wrapper_session_0926e8da04144bc7bc328d31b7b68f86(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal session
+            session = expr
+            return session
+
+        if (_walrus_wrapper_session_0926e8da04144bc7bc328d31b7b68f86(kwargs.pop("session", None))) is None:
             msg = "Spark like backends require a session object to be passed in `kwargs`."
             raise ValueError(msg)
 
@@ -969,7 +978,16 @@ def scan_parquet(
 
         native_frame = pq.read_table(source, **kwargs)
     elif implementation.is_spark_like():
-        if (session := kwargs.pop("session", None)) is None:
+        if False:
+            session = NotImplemented
+
+        def _walrus_wrapper_session_7a8e2ee0dfa346b9b22151202dc9162e(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal session
+            session = expr
+            return session
+
+        if (_walrus_wrapper_session_7a8e2ee0dfa346b9b22151202dc9162e(kwargs.pop("session", None))) is None:
             msg = "Spark like backends require a session object to be passed in `kwargs`."
             raise ValueError(msg)
 

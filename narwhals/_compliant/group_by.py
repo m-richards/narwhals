@@ -114,10 +114,18 @@ class ParseKeysGroupBy(
 
         output_names = compliant_frame._evaluate_aliases(*keys)
 
+        if False:
+            metadata = NotImplemented
+
+        def _walrus_wrapper_metadata_4ae7e3c494b84f68b24817143a1fda7c(expr):
+            """Wrapper function for assignment expression."""
+            nonlocal metadata
+            metadata = expr
+            return metadata
         safe_keys = [
             # multi-output expression cannot have duplicate names, hence it's safe to suffix
             key.name.map(_temporary_name)
-            if (metadata := key._metadata) and metadata.expansion_kind.is_multi_output()
+            if (_walrus_wrapper_metadata_4ae7e3c494b84f68b24817143a1fda7c(key._metadata)) and metadata.expansion_kind.is_multi_output()
             # otherwise it's single named and we can use Expr.alias
             else key.alias(_temporary_name(new_name))
             for key, new_name in zip(keys, output_names)
