@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from narwhals._compliant.any_namespace import (
         CatNamespace,
         DateTimeNamespace,
+        GeoNamespace,
         ListNamespace,
         StringNamespace,
         StructNamespace,
@@ -211,3 +212,5 @@ class CompliantColumn(Protocol):
     def list(self) -> ListNamespace[Self]: ...
     @property
     def struct(self) -> StructNamespace[Self]: ...
+    @property
+    def geo(self) -> GeoNamespace[Self]: ...

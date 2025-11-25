@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, ClassVar, Protocol
+from typing import TYPE_CHECKING, Any, ClassVar, Protocol
 
 from narwhals._utils import CompliantT_co, _StoresCompliant
 
@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 __all__ = [
     "CatNamespace",
     "DateTimeNamespace",
+    "GeoNamespace",
     "ListNamespace",
     "NameNamespace",
     "NamespaceAccessor",
@@ -59,6 +60,13 @@ class DateTimeNamespace(_StoresCompliant[CompliantT_co], Protocol[CompliantT_co]
     def total_nanoseconds(self) -> CompliantT_co: ...
     def truncate(self, every: str) -> CompliantT_co: ...
     def offset_by(self, by: str) -> CompliantT_co: ...
+
+
+class GeoNamespace(NamespaceAccessor[CompliantT_co], Protocol[CompliantT_co]):
+    _accessor: ClassVar[Accessor] = "geo"
+
+    # TODO why is the RHS of binary ops typed as any?
+    def intersects(self, other: Any) -> CompliantT_co: ...
 
 
 class ListNamespace(_StoresCompliant[CompliantT_co], Protocol[CompliantT_co]):

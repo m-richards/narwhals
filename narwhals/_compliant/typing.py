@@ -208,6 +208,6 @@ Be sure to update me if you're working on one of these:
 """
 
 Accessor: TypeAlias = Literal[
-    "arr", "cat", "dt", "list", "meta", "name", "str", "bin", "struct"
+    "arr", "cat", "dt", "geo", "list", "meta", "name", "str", "bin", "struct"
 ]
 """`{Expr,Series}` method namespace accessor name."""

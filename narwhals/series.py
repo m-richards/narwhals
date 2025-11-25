@@ -22,6 +22,7 @@ from narwhals.dtypes import _validate_dtype, _validate_into_dtype
 from narwhals.exceptions import ComputeError, InvalidOperationError
 from narwhals.series_cat import SeriesCatNamespace
 from narwhals.series_dt import SeriesDateTimeNamespace
+from narwhals.series_geo import SeriesGeoNamespace
 from narwhals.series_list import SeriesListNamespace
 from narwhals.series_str import SeriesStringNamespace
 from narwhals.series_struct import SeriesStructNamespace
@@ -2674,6 +2675,11 @@ class Series(Generic[IntoSeriesT]):
         """
         return self._with_compliant(self._compliant_series.sqrt())
 
+    def intersects(self, other: Any) -> Self:
+        return self._with_compliant(
+            self._compliant_series.geo.intersects(self._extract_native(other))
+        )
+
     def is_close(
         self,
         other: Self | NumericLiteral,
@@ -2758,6 +2764,10 @@ class Series(Generic[IntoSeriesT]):
     @property
     def cat(self) -> SeriesCatNamespace[Self]:
         return SeriesCatNamespace(self)
+
+    @property
+    def geo(self) -> SeriesGeoNamespace[Self]:
+        return SeriesGeoNamespace(self)
 
     @property
     def list(self) -> SeriesListNamespace[Self]:

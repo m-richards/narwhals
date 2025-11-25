@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Any, Callable, Generic, Literal, Protocol
 from narwhals._compliant.any_namespace import (
     CatNamespace,
     DateTimeNamespace,
+    GeoNamespace,
     ListNamespace,
     NameNamespace,
     StringNamespace,
@@ -399,7 +400,7 @@ class EagerExpr(
 
     def _reuse_series_namespace(
         self,
-        series_namespace: Literal["cat", "dt", "list", "name", "str", "struct"],
+        series_namespace: Literal["cat", "dt", "list", "name", "str", "struct", "geo"],
         method_name: str,
         **expressifiable_args: Any,
     ) -> Self:
@@ -900,6 +901,10 @@ class EagerExpr(
     def struct(self) -> EagerExprStructNamespace[Self]:
         return EagerExprStructNamespace(self)
 
+    @property
+    def geo(self) -> EagerExprGeoNamespace[Self]:
+        return EagerExprGeoNamespace(self)
+
 
 # mypy thinks `NativeExprT` should be covariant, pyright thinks it should be invariant
 class LazyExpr(  # type: ignore[misc]
@@ -1168,3 +1173,10 @@ class EagerExprStructNamespace(
         return self.compliant._reuse_series_namespace("struct", "field", name=name).alias(
             name
         )
+
+
+class EagerExprGeoNamespace(
+    EagerExprNamespace[EagerExprT], GeoNamespace[EagerExprT], Generic[EagerExprT]
+):
+    def intersects(self, other: Any) -> EagerExprT:
+        return self.compliant._reuse_series_namespace("geo", "intersects", other=other)
