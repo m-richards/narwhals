@@ -2675,11 +2675,6 @@ class Series(Generic[IntoSeriesT]):
         """
         return self._with_compliant(self._compliant_series.sqrt())
 
-    def intersects(self, other: Any) -> Self:
-        return self._with_compliant(
-            self._compliant_series.geo.intersects(self._extract_native(other))
-        )
-
     def is_close(
         self,
         other: Self | NumericLiteral,

@@ -1054,9 +1054,6 @@ class PandasLikeSeries(EagerSeries[Any]):
     def sqrt(self) -> Self:
         return self._with_native(self.native.pow(0.5))
 
-    def intersects(self, other: Any):
-        return self._with_binary(lambda x, y: x.intersects(y), other)
-
     @property
     def str(self) -> PandasLikeSeriesStringNamespace:
         return PandasLikeSeriesStringNamespace(self)

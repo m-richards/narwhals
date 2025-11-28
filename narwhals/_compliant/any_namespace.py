@@ -65,7 +65,7 @@ class DateTimeNamespace(_StoresCompliant[CompliantT_co], Protocol[CompliantT_co]
 class GeoNamespace(NamespaceAccessor[CompliantT_co], Protocol[CompliantT_co]):
     _accessor: ClassVar[Accessor] = "geo"
 
-    # TODO why is the RHS of binary ops typed as any?
+    # TODO(m-richards) why is the RHS of binary ops typed as any?
     def intersects(self, other: Any) -> CompliantT_co: ...
 
 
