@@ -21,7 +21,7 @@ nav:
     - concepts/null_handling.md
   - Overhead: overhead.md
   - Perfect backwards compatibility policy: backcompat.md
-  - Supported libraries and extending Narwhals: extending.md
+  - Extensions and Plugins: extending.md
   - How it works: how_it_works.md
   - Ecosystem: ecosystem.md
   - Security: security.md
@@ -69,6 +69,7 @@ nav:
     - api-reference/dtypes.md
     - api-reference/exceptions.md
     - api-reference/selectors.md
+    - api-reference/testing.md
     - api-reference/typing.md
     - api-reference/utils.md
   - This: this.md

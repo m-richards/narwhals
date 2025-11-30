@@ -4,7 +4,6 @@ import re
 from datetime import datetime
 from typing import TYPE_CHECKING, Any, Literal
 
-import pandas as pd
 import pytest
 
 import narwhals as nw
@@ -17,11 +16,11 @@ from tests.utils import (
 )
 
 if TYPE_CHECKING:
-    from narwhals.typing import IntoLazyFrameT, JoinStrategy, NativeDataFrame
+    from narwhals.typing import IntoDataFrame, IntoLazyFrameT, JoinStrategy
 
 
 def from_native_lazy(
-    native: IntoLazyFrameT | NativeDataFrame,
+    native: IntoLazyFrameT | IntoDataFrame,
 ) -> nw.LazyFrame[IntoLazyFrameT] | nw.LazyFrame[Any]:
     """Every join test [needs to use `.lazy()` for typing]*.
 
@@ -251,8 +250,8 @@ def test_cross_join_suffix(constructor: Constructor, suffix: str) -> None:
 
 def test_cross_join_non_pandas() -> None:
     _ = pytest.importorskip("modin")
-
     import modin.pandas as mpd
+    import pandas as pd
 
     data = {"antananarivo": [1, 3, 2]}
     df1 = nw.from_native(mpd.DataFrame(pd.DataFrame(data)), eager_only=True)
@@ -777,6 +776,8 @@ def test_join_duplicate_column_names(
         # need to investigate.
     ):
         request.applymarker(pytest.mark.xfail)
+    data = {"a": [1, 2, 3, 4, 5], "b": [6, 6, 6, 6, 6]}
+    df = nw.from_native(constructor(data))
     if any(
         x in str(constructor)
         for x in ("pandas", "pandas[pyarrow]", "pandas[nullable]", "dask")
@@ -799,8 +800,6 @@ def test_join_duplicate_column_names(
         request.applymarker(pytest.mark.xfail)
     else:
         exception = nw.exceptions.DuplicateError
-    data = {"a": [1, 2, 3, 4, 5], "b": [6, 6, 6, 6, 6]}
-    df = nw.from_native(constructor(data))
     if isinstance(df, nw.LazyFrame):
         with pytest.raises(exception):
             df.join(df, on=["a"]).join(df, on=["a"]).collect()
