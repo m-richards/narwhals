@@ -15,3 +15,8 @@ class SeriesGeoNamespace(Generic[SeriesT]):
                 self._narwhals_series._extract_native(other)
             )
         )
+
+    def area(self) -> SeriesT:
+        return self._narwhals_series._with_compliant(
+            self._narwhals_series._compliant_series.geo.area()
+        )

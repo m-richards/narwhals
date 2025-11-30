@@ -75,7 +75,7 @@ def test_data_duckdb(test_data_gpd: gpd.GeoDataFrame) -> None:
     return duckdb.sql("SELECT * FROM _gdf_arrow")
 
 
-def test_data_1() -> gpd.GeoSeries:
+def data_1() -> gpd.GeoSeries:
     # TODO(m-richards) ideally define as dicts
     # (not fixtures to reduce bloat of mandatory type annotations)
     from shapely import Point, Polygon
@@ -86,21 +86,12 @@ def test_data_1() -> gpd.GeoSeries:
     return gpd.GeoSeries([t1, t2, p0])
 
 
-def test_data_2() -> gpd.GeoSeries:
-    from shapely import Polygon
-
-    t1 = Polygon([(0, 0), (1, 0), (1, 1)])
-    return gpd.GeoSeries([t1, t1, t1])
-
-
 @pytest.mark.parametrize("geo_ser_constructor", [gpd_ser_constructor])
 def test_intersects_namespace(geo_ser_constructor: gpd.GeoSeries) -> None:
-    ser_native = geo_ser_constructor(test_data_1())
+    ser_native = geo_ser_constructor(data_1())
     nser = nw.from_native(ser_native, series_only=True)
-    other_native = geo_ser_constructor(test_data_2())
-    other = nw.from_native(other_native, series_only=True)
-    res = nser.geo.intersects(other)
-    assert_equal_data({"col": res}, {"col": pd.Series([True, True, False])})
+    res = nser.geo.area()
+    assert_equal_data({"col": res}, {"col": pd.Series([0.5, 0.5, 0.0])})
 
 
 @pytest.mark.parametrize("geo_constructor", [gpd_constructor, duckdb_constructor])
@@ -109,9 +100,9 @@ def test_intersects_expr(
         [pd.DataFrame | gpd.GeoDataFrame | dict[str, pd.Series]], gpd.GeoDataFrame
     ],
 ) -> None:
-    native = geo_constructor({"a": test_data_1(), "b": test_data_2()})
+    native = geo_constructor({"a": data_1()})
     df = nw.from_native(native)
 
-    expr = nw.col("a").geo.intersects(nw.col("b")).alias("c")
+    expr = nw.col("a").geo.area().alias("res")
     res = df.select(expr)
-    assert_equal_data(res, {"c": pd.Series([True, True, False])})
+    assert_equal_data(res, {"res": pd.Series([0.5, 0.5, 0.0])})

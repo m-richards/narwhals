@@ -14,3 +14,6 @@ class PandasLikeSeriesGeoNamespace(
 ):
     def intersects(self, other: PandasLikeSeries) -> PandasLikeSeries:
         return self.with_native(self.native.intersects(other.native))
+
+    def area(self) -> PandasLikeSeries:
+        return self.with_native(self.native.area)

@@ -2397,10 +2397,5 @@ class Expr:
     def geo(self) -> ExprGeoNamespace[Self]:
         return ExprGeoNamespace(self)
 
-    def intersects(self, other: Any) -> Self:
-        return self._with_elementwise(
-            lambda plx: self._to_compliant_expr(plx).geo.intersects(other)
-        )
-
 
 __all__ = ["Expr"]
