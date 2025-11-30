@@ -70,6 +70,8 @@ class GeoNamespace(NamespaceAccessor[CompliantT_co], Protocol[CompliantT_co]):
     # TODO(m-richards) why is the RHS of binary ops typed as any?
     def intersects(self, other: Any) -> CompliantT_co: ...
 
+    def area(self) -> CompliantT_co: ...
+
 
 class ListNamespace(_StoresCompliant[CompliantT_co], Protocol[CompliantT_co]):
     _accessor: ClassVar[Accessor] = "list"

@@ -15,3 +15,6 @@ class DuckDBExprGeoNamespace(LazyExprNamespace["DuckDBExpr"], GeoNamespace["Duck
         return self._compliant_expr._with_binary(
             lambda expr, other: F("ST_Intersects", expr, other), other
         )
+
+    def area(self) -> DuckDBExpr:
+        return self.compliant._with_elementwise(lambda expr: F("ST_Area", expr))

@@ -1130,3 +1130,6 @@ class EagerExprGeoNamespace(
 ):
     def intersects(self, other: Any) -> EagerExprT:
         return self.compliant._reuse_series_namespace("geo", "intersects", other=other)
+
+    def area(self) -> EagerExprT:
+        return self.compliant._reuse_series_namespace("geo", "area")
