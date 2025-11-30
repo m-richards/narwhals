@@ -10,6 +10,7 @@ from narwhals.dtypes import _validate_dtype
 from narwhals.exceptions import ComputeError, InvalidOperationError
 from narwhals.expr_cat import ExprCatNamespace
 from narwhals.expr_dt import ExprDateTimeNamespace
+from narwhals.expr_geo import ExprGeoNamespace
 from narwhals.expr_list import ExprListNamespace
 from narwhals.expr_name import ExprNameNamespace
 from narwhals.expr_str import ExprStringNamespace
@@ -2391,6 +2392,10 @@ class Expr:
     @property
     def struct(self) -> ExprStructNamespace[Self]:
         return ExprStructNamespace(self)
+
+    @property
+    def geo(self) -> ExprGeoNamespace[Self]:
+        return ExprGeoNamespace(self)
 
 
 __all__ = ["Expr"]

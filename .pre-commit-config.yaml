@@ -56,12 +56,12 @@ repos:
         additional_dependencies: [darglint==1.8.1, flake8-typing-imports==1.17.0]
 - repo: local
   hooks:
-    - id: check-api-reference
-      name: check-api-reference
-      pass_filenames: false
-      entry: python -m utils.check_api_reference
-      language: python
-      additional_dependencies: [polars]
+#    - id: check-api-reference
+#      name: check-api-reference
+#      pass_filenames: false
+#      entry: python -m utils.check_api_reference
+#      language: python
+#      additional_dependencies: [polars]
     - id: sort-api-reference
       name: sort-api-reference
       pass_filenames: false

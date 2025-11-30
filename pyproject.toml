@@ -6,7 +6,8 @@ build-backend = "hatchling.build"
 [project]
 name = "narwhals"
 version = "2.12.0"
-dependencies = []
+# TODO hard coded deps for initial boostrapping
+dependencies = ["geopandas>=1.0"]
 requires-python = ">=3.9"
 authors = [
   { name = "Marco Gorelli", email = "hello_narwhals@proton.me" },
@@ -45,6 +46,7 @@ dask = ["dask[dataframe]>=2024.8"]
 duckdb = ["duckdb>=1.1"]
 ibis = ["ibis-framework>=6.0.0", "rich", "packaging", "pyarrow_hotfix"]
 sqlframe = ["sqlframe>=3.22.0,!=3.39.3"]
+geopandas = ["geopandas>=1.0.0"]
 
 [dependency-groups]
 core = [

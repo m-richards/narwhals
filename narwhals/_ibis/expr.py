@@ -371,6 +371,8 @@ class IbisExpr(SQLExpr["IbisLazyFrame", "ir.Value"]):
     def struct(self) -> IbisExprStructNamespace:
         return IbisExprStructNamespace(self)
 
+    geo: not_implemented = not_implemented()  # type: ignore[assignment]
+
     # NOTE: https://github.com/ibis-project/ibis/issues/10542
     cum_prod = not_implemented()
 

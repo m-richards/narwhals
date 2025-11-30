@@ -423,4 +423,6 @@ class SparkLikeExpr(SQLExpr["SparkLikeLazyFrame", "Column"]):
     def struct(self) -> SparkLikeExprStructNamespace:
         return SparkLikeExprStructNamespace(self)
 
+    geo: not_implemented = not_implemented()  # type: ignore[assignment]
+
     quantile = not_implemented()

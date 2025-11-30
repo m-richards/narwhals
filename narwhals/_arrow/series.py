@@ -58,6 +58,7 @@ if TYPE_CHECKING:
         _AsPyType,
         _BasicDataType,
     )
+    from narwhals._compliant.any_namespace import GeoNamespace
     from narwhals._compliant.series import HistData
     from narwhals._typing import NoDefault
     from narwhals._utils import Version, _LimitedContext
@@ -1123,6 +1124,10 @@ class ArrowSeries(EagerSeries["ChunkedArrayAny"]):
     @property
     def struct(self) -> ArrowSeriesStructNamespace:
         return ArrowSeriesStructNamespace(self)
+
+    @property
+    def geo(self) -> GeoNamespace[Self]:
+        raise NotImplementedError
 
     ewm_mean = not_implemented()
 
