@@ -36,7 +36,6 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from narwhals._compliant import WindowInputs
-    from narwhals._compliant.any_namespace import GeoNamespace
     from narwhals._compliant.typing import (
         AliasNames,
         EvalNames,
@@ -372,9 +371,7 @@ class IbisExpr(SQLExpr["IbisLazyFrame", "ir.Value"]):
     def struct(self) -> IbisExprStructNamespace:
         return IbisExprStructNamespace(self)
 
-    @property
-    def geo(self) -> GeoNamespace[Self]:
-        raise NotImplementedError
+    geo: not_implemented = not_implemented()  # type: ignore[assignment]
 
     # NOTE: https://github.com/ibis-project/ibis/issues/10542
     cum_prod = not_implemented()

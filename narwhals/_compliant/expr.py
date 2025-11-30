@@ -849,9 +849,7 @@ class EagerExpr(
     def struct(self) -> EagerExprStructNamespace[Self]:
         return EagerExprStructNamespace(self)
 
-    @property
-    def geo(self) -> EagerExprGeoNamespace[Self]:
-        return EagerExprGeoNamespace(self)
+    geo: not_implemented = not_implemented()  # type: ignore[assignment]
 
 
 # mypy thinks `NativeExprT` should be covariant, pyright thinks it should be invariant

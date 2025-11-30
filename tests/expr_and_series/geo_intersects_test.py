@@ -12,7 +12,7 @@ from tests.utils import assert_equal_data
 if TYPE_CHECKING:
     import duckdb
 
-T = TypeVar("T", bound=pd.DataFrame | gpd.GeoDataFrame)
+T = TypeVar("T", pd.DataFrame, gpd.GeoDataFrame)
 
 
 def gpd_ser_constructor(data: gpd.GeoSeries) -> gpd.GeoSeries:
