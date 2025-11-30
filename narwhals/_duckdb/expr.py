@@ -330,9 +330,9 @@ class DuckDBExpr(SQLExpr["DuckDBLazyFrame", "Expression"]):
         return DuckDBExprListNamespace(self)
 
     @property
-    def geo(self) -> DuckDBExprGeoNamespace:
-        return DuckDBExprGeoNamespace(self)
-
-    @property
     def struct(self) -> DuckDBExprStructNamespace:
         return DuckDBExprStructNamespace(self)
+
+    @property
+    def geo(self) -> DuckDBExprGeoNamespace:
+        return DuckDBExprGeoNamespace(self)

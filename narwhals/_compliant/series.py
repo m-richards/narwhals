@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, Generic, Literal, Protocol
 from narwhals._compliant.any_namespace import (
     CatNamespace,
     DateTimeNamespace,
+    GeoNamespace,
     ListNamespace,
     StringNamespace,
     StructNamespace,
@@ -268,6 +269,10 @@ class EagerSeries(CompliantSeries[NativeSeriesT], Protocol[NativeSeriesT]):
     @property
     def struct(self) -> EagerSeriesStructNamespace[Self, NativeSeriesT]: ...
 
+    @property
+    def geo(self) -> EagerSeriesGeoNamespace[Self, NativeSeriesT]:
+        raise NotImplementedError
+
 
 class _SeriesNamespace(  # type: ignore[misc]
     _StoresCompliant[CompliantSeriesT_co],
@@ -341,6 +346,13 @@ class EagerSeriesStringNamespace(  # type: ignore[misc]
 class EagerSeriesStructNamespace(  # type: ignore[misc]
     _SeriesNamespace[EagerSeriesT_co, NativeSeriesT_co],
     StructNamespace[EagerSeriesT_co],
+    Protocol[EagerSeriesT_co, NativeSeriesT_co],
+): ...
+
+
+class EagerSeriesGeoNamespace(  # type: ignore[misc]
+    _SeriesNamespace[EagerSeriesT_co, NativeSeriesT_co],
+    GeoNamespace[EagerSeriesT_co],
     Protocol[EagerSeriesT_co, NativeSeriesT_co],
 ): ...
 

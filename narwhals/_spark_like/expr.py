@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self, TypeAlias
 
     from narwhals._compliant import WindowInputs
+    from narwhals._compliant.any_namespace import GeoNamespace
     from narwhals._compliant.typing import (
         AliasNames,
         EvalNames,
@@ -402,5 +403,9 @@ class SparkLikeExpr(SQLExpr["SparkLikeLazyFrame", "Column"]):
     @property
     def struct(self) -> SparkLikeExprStructNamespace:
         return SparkLikeExprStructNamespace(self)
+
+    @property
+    def geo(self) -> GeoNamespace[Self]:
+        raise NotImplementedError
 
     quantile = not_implemented()
