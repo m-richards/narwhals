@@ -7,7 +7,7 @@ build-backend = "hatchling.build"
 name = "narwhals"
 version = "2.12.0"
 # TODO hard coded deps for initial boostrapping
-dependencies = ["geopandas==1.1.1"]
+dependencies = ["geopandas>=1.0"]
 requires-python = ">=3.9"
 authors = [
   { name = "Marco Gorelli", email = "hello_narwhals@proton.me" },
